@@ -118,6 +118,7 @@ class Map extends Component {
                     defaultCenter={{lat: 21.1882573, lng: -29.2687225}}
                     defaultZoom={3}
                     options={mapOptions}
+                    resetBoundsOnResize={true}
                 />
             </Fragment>
         )
