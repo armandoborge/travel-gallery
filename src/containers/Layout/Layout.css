@@ -1,0 +1,31 @@
+.Main {
+    width: 100vw;
+    height: 100vh;
+    margin-left: 0;
+    overflow-x: hidden;
+
+    z-index: 1;
+    transition: transform 0.5s ease;
+}
+
+.showSidebar {
+    width: calc(100vw - var(--sidebar-width));
+    transform: translateX(var(--sidebar-width));
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    .Main {
+        width: calc(100vw - var(--sidebar-width));
+        transform: translateX(var(--sidebar-width));
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}

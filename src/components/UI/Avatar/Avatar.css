@@ -1,0 +1,29 @@
+.Avatar {
+    width: 100%;
+    height: var(--avatar-height);
+    padding: 20px 0;
+    text-align: center;
+    background: var(--color-light-sea-green);
+    color: var(--color-light-steel-blue);
+}
+
+.Avatar img{
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 50%;
+    border-color: var(--color-black);
+    border-width: 1px;
+    border-style: dotted;
+}
+
+.Avatar h1 {
+    margin: 20px 0 5px;
+    font-weight: 300;
+}
+
+.Avatar p {
+    margin: 0 0 10px;
+    font-weight: 300;
+}

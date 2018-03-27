@@ -1,0 +1,36 @@
+:root {
+    --color-navy: #17263C;
+    --color-saddle-brown: #E2CB9E;
+    --color-light-steel-blue: #E5F7FA;
+    --color-black: #282721;
+    --color-light-sea-green: #425A6A;
+
+    --sidebar-width: 250px;
+    --avatar-height: 250px;
+    --sidebar-width-negative: -250px;
+}
+
+html, body {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: var(--color-navy);
+    font-family: 'Raleway', sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}

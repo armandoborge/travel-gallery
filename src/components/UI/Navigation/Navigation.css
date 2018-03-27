@@ -1,0 +1,31 @@
+.Navigation {
+    color: var(--color-light-steel-blue);
+    height: calc(100vh - var(--avatar-height));
+    overflow: scroll;
+    padding-bottom: 10px;
+}
+
+.Navigation ul{
+    list-style: none;
+    padding: 0 7px;
+    margin: 0;
+}
+
+.Navigation ul li {
+    padding: 3px;
+    cursor: pointer;
+    font-weight: lighter;
+    text-align: left;
+    font-size: 14px;
+    color: var(--color-saddle-brown);
+}
+
+.Navigation ul li h3 {
+    padding: 5px 5px 5px 0;
+    margin-bottom: 15px;
+    font-weight: 300;
+    text-align: left;
+    color: var(--color-light-steel-blue);
+    background-repeat: repeat;
+    border-bottom: 1px dotted var(--color-light-steel-blue);
+}
