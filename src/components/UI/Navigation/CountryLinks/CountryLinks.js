@@ -14,7 +14,8 @@ const countryLinks = (props) => {
             pathname: '/gallery/' + props.country.link + '/' + place.link,
             state: {
                 country: props.country.name,
-                album: place.name
+                album: place.name,
+                path: props.country.link + '/' + place.link + '/'
             }
         }
     };
