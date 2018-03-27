@@ -17,6 +17,19 @@ class Layout extends Component {
         showSidebar: true
     };
 
+    componentWillMount() {
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    handleWindowResize = () => {
+        this.setState({ showSidebar: window.innerWidth >= 500 });
+    };
+
+
     sidebarCloseHandler = () => {
         this.setState({ showSidebar: false });
     };
