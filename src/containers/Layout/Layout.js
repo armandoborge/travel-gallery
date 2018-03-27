@@ -29,11 +29,6 @@ class Layout extends Component {
         this.setState({ showSidebar: window.innerWidth >= 500 });
     };
 
-
-    sidebarCloseHandler = () => {
-        this.setState({ showSidebar: false });
-    };
-
     sidebarToggleHandler = () => {
         this.setState((prevState) => {
             return {showSidebar: !prevState.showSidebar}
@@ -45,7 +40,6 @@ class Layout extends Component {
         return (
             <Fragment>
                 <Sidebar
-                    closed={this.sidebarCloseHandler}
                     toggled={this.sidebarToggleHandler}
                     showSidebar={this.state.showSidebar}>
                     <Avatar />

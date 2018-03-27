@@ -12,7 +12,7 @@ const sidebar = (props) => {
 
     return (
         <aside className={sidebarClasses.join(' ')}>
-            <div className={styles.content} onClick={props.closed}>
+            <div className={styles.content}>
                 {props.children}
             </div>
             <div className={styles.toggle} onClick={props.toggled}>
