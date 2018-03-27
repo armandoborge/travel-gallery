@@ -1,71 +1,170 @@
 //
-// from node_modules
+// from node-modules
 import React from 'react';
+
+//
+// components import
+import CountryLinks from './CountryLinks/CountryLinks';
 
 //
 // CSS import
 import styles from './Navigation.css'
 
-const navigation = () => (
-    <nav className={styles.Navigation}>
-        <ul>
-            <li>
-                <h3>Argentina</h3>
-                <ul>
-                    <li>El Calafate</li>
-                    <li>San Carlos de Bariloche</li>
-                    <li>San Mart&iacute;n de los Andes</li>
-                    <li>Villa La Angostura</li>
-                    <li>El Cafayate</li>
-                    <li>Salta</li>
-                    <li>Jujuy</li>
-                </ul>
+const countries = [
+    {
+        name: 'Argentina',
+        link: 'argentina',
+        places: [
+            {
+                name: 'El Calafate',
+                link: 'el-calafate'
+            },
+            {
+                name: 'San Carlos de Bariloche',
+                link: 'san-carlos-de-bariloche'
+            },
+            {
+                name: 'San Martín de los Andes',
+                link: 'san-martin-de-los-andes'
+            },
+            {
+                name: 'El Cafayate',
+                link: 'el-cafayate'
+            },
+            {
+                name: 'Salta',
+                link: 'salta'
+            },
+            {
+                name: 'Jujuy',
+                link: 'jujuy'
+            }
+        ]
+    },
+    {
+        name: 'Chile',
+        link: 'chile',
+        places: [
+            {
+                name: 'Santiago',
+                link: 'santiago'
+            },
+            {
+                name: 'Valparaiso',
+                link: 'valparaiso'
+            },
+            {
+                name: 'Chiloé',
+                link: 'chiloe'
+            },
+            {
+                name: 'Pucón',
+                link: 'pucon'
+            },
+            {
+                name: 'Parque Nacional Huerquehue',
+                link: 'huerquehue'
+            },
+            {
+                name: 'Antofagasta',
+                link: 'antofagasta'
+            }
+        ]
+    },
+    {
+        name: 'Costa Rica',
+        link: 'costa-rica',
+        places: [
+            {
+                name: 'Playa Santa Teresa',
+                link: 'santa-teresa'
+            },
+            {
+                name: 'Playa Grande',
+                link: 'playa-grande'
+            },
+            {
+                name: 'Alajuela',
+                link: 'alajuela'
+            }
+        ]
+    },
+    {
+        name: 'Nicaragua',
+        link: 'nicaragua',
+        places: [
+            {
+                name: 'Isla de Ometepe',
+                link: 'ometepe'
+            },
+            {
+                name: 'Granada',
+                link: 'granada'
+            },
+            {
+                name: 'Masaya',
+                link: 'masaya'
+            }
+        ]
+    },
+    {
+        name: 'México',
+        link: 'mexico',
+        places: [
+            {
+                name: 'San Jose del Pacifico',
+                link: 'san-jose-del-pacifico'
+            },
+            {
+                name: 'San Miguel de Allende',
+                link: 'san-miguel-de-allende'
+            },
+            {
+                name: 'Ciudad de México',
+                link: 'ciudad-de-mexico'
+            },
+            {
+                name: 'Guanajuato',
+                link: 'guanajuato'
+            },
+            {
+                name: 'Oaxaca',
+                link: 'oaxaca'
+            },
+            {
+                name: 'Taxco',
+                link: 'taxco'
+            }
+        ]
+    },
+    {
+        name: 'Panamá',
+        link: 'panama',
+        places: [
+            {
+                name: 'Ciudad de Panamá',
+                link: 'ciudad-de-panama'
+            }
+        ]
+    }
+];
+
+const navigation = () => {
+    const countriesMenu = countries.map((country, index) => {
+        return (
+            <li key={index}>
+                <CountryLinks country={country} />
             </li>
-            <li>
-                <h3>Chile</h3>
-                <ul>
-                    <li>Santiago</li>
-                    <li>Valparaiso</li>
-                    <li>Chiloe</li>
-                    <li>Puc&oacute;n</li>
-                    <li>Huerquehue</li>
-                    <li>Antofagasta</li>
-                </ul>
-            </li>
-            <li>
-                <h3>Costa Rica</h3>
-                <ul>
-                    <li>Playa  Santa Teresa</li>
-                    <li>Playa Grande</li>
-                </ul>
-            </li>
-            <li>
-                <h3>Nicaragua</h3>
-                <ul>
-                    <li>Isla de Ometepe</li>
-                    <li>Granada</li>
-                    <li>Masaya</li>
-                </ul>
-            </li>
-            <li>
-                <h3>Panam&aacute;</h3>
-                <ul>
-                    <li>Ciudad de Panam&aacute;</li>
-                </ul>
-            </li>
-            <li>
-                <h3>M&eacute;xico</h3>
-                <ul>
-                    <li>Ciudad de M&eacute;xico</li>
-                    <li>Taxco de Guerrero</li>
-                    <li>Oaxaca</li>
-                    <li>San Jose del Pacifico</li>
-                    <li>San Miguel de Allende</li>
-                    <li>Guanajuato</li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-);
+        );
+    });
+
+    return (
+        <nav className={styles.Navigation}>
+            <ul>
+                {countriesMenu}
+            </ul>
+        </nav>
+    )
+};
 
 export default navigation;

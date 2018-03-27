@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 //
 // CSS import
 import styles from './Gallery.css'
 
-const gallery = () => {
-    return (
-        <div className={styles.Gallery}>
-            <p>Gallery</p>
-        </div>
-    );
-};
+class Gallery extends Component {
+    render() {
+        console.log(this.props.location);
 
-export default gallery;
+        return (
+            <div className={styles.Gallery}>
+                <p>Gallery</p>
+            </div>
+        )
+    }
+
+}
+
+export default Gallery;
