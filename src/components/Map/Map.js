@@ -2,8 +2,6 @@
 // from node_modules
 import React, { Component, Fragment }  from 'react';
 import GoogleMap from 'google-map-react';
-import { fitBounds } from 'google-map-react/utils';
-
 
 //
 // CSS import
@@ -117,7 +115,7 @@ class Map extends Component {
             <Fragment>
                 <GoogleMap
                     className={styles.Map}
-                    defaultCenter={{lat: -3.6216964, lng: -27.8624725}}
+                    defaultCenter={{lat: 21.1882573, lng: -29.2687225}}
                     defaultZoom={3}
                     options={mapOptions}
                 />
