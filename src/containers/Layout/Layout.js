@@ -14,7 +14,7 @@ import styles from './Layout.css'
 
 class Layout extends Component {
     state = {
-        showSidebar: true
+        showSidebar: window.innerWidth >= 670
     };
 
     sidebarToggleHandler = () => {
