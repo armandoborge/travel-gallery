@@ -63,13 +63,13 @@ class Gallery extends Component {
                 <header>
                     <h1>{this.props.location.state.album}</h1>
                     <h3>{this.props.location.state.country}</h3>
+                    <div className={styles.navLeft} onClick={this.handlePrevImage}>
+                        <i className="fas fa-angle-left" />
+                    </div>
+                    <div className={styles.navRight} onClick={this.handleNextImage}>
+                        <i className="fas fa-angle-right" />
+                    </div>
                 </header>
-                <div className={styles.navLeft} onClick={this.handlePrevImage}>
-                    <i className="fas fa-angle-left" />
-                </div>
-                <div className={styles.navRight} onClick={this.handleNextImage}>
-                    <i className="fas fa-angle-right" />
-                </div>
             </div>
         )
     }
