@@ -34,6 +34,14 @@ class Gallery extends Component {
         });
     };
 
+    handleKeyPress = (event) => {
+        switch (event.code) {
+            case 'ArrowLeft': this.handlePrevImage(); break;
+            case 'ArrowRight': this.handleNextImage(); break;
+            default: return;
+        }
+    };
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.location.state.path !== this.props.location.state.path) {
             this.setState({
@@ -51,6 +59,14 @@ class Gallery extends Component {
                 return img.indexOf(this.props.location.state.path) > -1
             })
         });
+    }
+
+    componentDidMount () {
+        window.addEventListener('keydown', this.handleKeyPress);
+    }
+
+    componentWillUnmount () {
+        window.removeEventListener('keydown', this.handleKeyPress);
     }
 
     render() {
