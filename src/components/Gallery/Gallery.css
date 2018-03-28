@@ -55,3 +55,14 @@
     padding: 2px 0 0 3px;
     right: 10px;
 }
+
+.prevPhoto {
+    height: 100vh;
+    width: 50%;
+    float: left;
+}
+.nextPhoto {
+    height: 100vh;
+    width: 50%;
+    float: right;
+}

@@ -70,6 +70,8 @@ class Gallery extends Component {
                         <i className="fas fa-angle-right" />
                     </div>
                 </header>
+                <div className={styles.prevPhoto} onClick={this.handlePrevImage}></div>
+                <div className={styles.nextPhoto} onClick={this.handleNextImage}></div>
             </div>
         )
     }
