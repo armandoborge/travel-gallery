@@ -17,7 +17,7 @@ const avatar = () => (
         <img src={profileImage} alt="Armando Borge" />
         <Link to="/map">
             <h1>Armando Borge</h1>
-            <p>Travel Gallery</p>
+            <p>Fotos de Viajes</p>
         </Link>
     </div>
 );

@@ -6,27 +6,21 @@ import React, { Component } from 'react';
 // CSS import
 import styles from './Gallery.css'
 
-let albumImages = [
-    window.PUBLIC_URL + '/albums/chile/huerquehue/IMG_0118.JPG',
-    window.PUBLIC_URL + '/albums/chile/huerquehue/IMG_5292.JPG',
-    window.PUBLIC_URL + '/albums/chile/huerquehue/IMG_5309.JPG',
-    window.PUBLIC_URL + '/albums/chile/huerquehue/IMG_5383.JPG',
-    window.PUBLIC_URL + '/albums/chile/huerquehue/IMG_5400.JPG',
-    window.PUBLIC_URL + '/albums/chile/huerquehue/IMG_5436.JPG',
-    window.PUBLIC_URL + '/albums/chile/huerquehue/IMG_5421.JPG',
-    window.PUBLIC_URL + '/albums/chile/huerquehue/IMG_5373.JPG'
-];
+//
+// get photos context
+const imagesContext = require.context('../../photos/', true);
 
 class Gallery extends Component {
     state = {
-        indexImage: 0
+        indexImage: 0,
+        imagesList: []
     };
 
     handlePrevImage = () => {
         this.setState((prevState) => {
             var currentIndex = prevState.indexImage;
             var nextIndex = currentIndex - 1;
-            var indexImage = nextIndex < 0 ? albumImages.length - 1 : nextIndex;
+            var indexImage = nextIndex < 0 ? this.state.imagesList.length - 1 : nextIndex;
             return {indexImage: indexImage}
         });
     };
@@ -35,19 +29,34 @@ class Gallery extends Component {
         this.setState((prevState) => {
             var currentIndex = prevState.indexImage;
             var nextIndex = currentIndex + 1;
-            var indexImage = nextIndex > (albumImages.length - 1) ? 0 : nextIndex;
+            var indexImage = nextIndex > (this.state.imagesList.length - 1) ? 0 : nextIndex;
             return {indexImage: indexImage}
         });
     };
 
-    render() {
-        //
-        // this.props.location.state.path
-        let galleryStyles = {
-            background: 'url(' + albumImages[this.state.indexImage] + ') center center / cover no-repeat'
-        };
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.location.state.path !== this.props.location.state.path) {
+            this.setState({
+                indexImage: 0,
+                imagesList: imagesContext.keys().filter(img => {
+                    return img.indexOf(nextProps.location.state.path) > -1
+                })
+            });
+        }
+    }
 
-        console.log(galleryStyles);
+    componentWillMount() {
+        this.setState({
+            imagesList: imagesContext.keys().filter(img => {
+                return img.indexOf(this.props.location.state.path) > -1
+            })
+        });
+    }
+
+    render() {
+        let galleryStyles = {
+            background: 'url(' + imagesContext(this.state.imagesList[this.state.indexImage]) + ') center center / cover no-repeat'
+        };
 
         return (
             <div className={styles.Gallery} style={galleryStyles}>
@@ -64,7 +73,6 @@ class Gallery extends Component {
             </div>
         )
     }
-
 }
 
 export default Gallery;
