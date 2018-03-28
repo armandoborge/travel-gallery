@@ -15,7 +15,7 @@ import profileImage from './avatar.jpg';
 const avatar = () => (
     <div className={styles.Avatar}>
         <img src={profileImage} alt="Armando Borge" />
-        <Link to="/map">
+        <Link to="/home">
             <h1>Armando Borge</h1>
             <p>Fotos de Viajes</p>
         </Link>
