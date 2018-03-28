@@ -1,0 +1,19 @@
+.Home {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.HomeContent {
+    opacity: 1;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin: 20vh auto;
+    padding: 0 15%;
+    color: var(--color-light-steel-blue);
+}
+
+.HomeContent h1{
+    font-weight: 300;
+}

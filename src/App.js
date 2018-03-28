@@ -8,7 +8,7 @@ import Layout from './containers/Layout/Layout'
 //
 // import navigation sections
 import Gallery from './components/Gallery/Gallery'
-import Map from './components/Map/Map'
+import Home from './components/Home/Home'
 
 class App extends Component {
     render() {
@@ -16,9 +16,9 @@ class App extends Component {
             <Fragment>
                 <Layout>
                     <Switch>
-                        <Route path="/map" exact component={Map} />
+                        <Route path="/home" exact component={Home} />
                         <Route path="/gallery" component={Gallery} />
-                        <Redirect to="/map" />
+                        <Redirect to="/home" />
                     </Switch>
                 </Layout>
             </Fragment>
