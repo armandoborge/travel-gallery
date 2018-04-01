@@ -3,9 +3,6 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 
-//
-// CSS import
-
 const countryLinks = (props) => {
     //
     // create place URL

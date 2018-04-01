@@ -1,6 +1,6 @@
 //
 // import from node_modules
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 //
 // CSS import
@@ -74,17 +74,26 @@ class Gallery extends Component {
             background: 'url(' + imagesContext(this.state.imagesList[this.state.indexImage]) + ') center center / cover no-repeat'
         };
 
-        return (
-            <div className={styles.Gallery} style={galleryStyles}>
-                <header>
-                    <h1>{this.props.location.state.album}</h1>
-                    <h3>{this.props.location.state.country}</h3>
+        var navButtons = null;
+        if (this.state.imagesList.length > 1) {
+            navButtons = (
+                <Fragment>
                     <div className={styles.navLeft} onClick={this.handlePrevImage}>
                         <i className="fas fa-angle-left" />
                     </div>
                     <div className={styles.navRight} onClick={this.handleNextImage}>
                         <i className="fas fa-angle-right" />
                     </div>
+                </Fragment>
+            );
+        }
+
+        return (
+            <div className={styles.Gallery} style={galleryStyles}>
+                <header>
+                    <h1>{this.props.location.state.album}</h1>
+                    <h3>{this.props.location.state.country}</h3>
+                    {navButtons}
                 </header>
                 <div className={styles.prevPhoto} onClick={this.handlePrevImage}></div>
                 <div className={styles.nextPhoto} onClick={this.handleNextImage}></div>

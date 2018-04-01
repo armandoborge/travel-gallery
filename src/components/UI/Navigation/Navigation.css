@@ -13,11 +13,11 @@
 
 .Navigation ul li,
 .Navigation ul li a{
-    padding: 3px;
+    padding: 5px 0 5px 5px;
     cursor: pointer;
     font-weight: lighter;
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: none;
     color: var(--color-saddle-brown);
 }
