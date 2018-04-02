@@ -6,22 +6,15 @@ import { NavLink } from 'react-router-dom';
 const countryLinks = (props) => {
     //
     // create place URL
-    const getLocation = (place) => {
-        return {
-            pathname: '/gallery/' + props.country.link + '/' + place.link,
-            state: {
-                country: props.country.name,
-                album: place.name,
-                path: props.country.link + '/' + place.link + '/'
-            }
-        }
+    const getLocation = (album) => {
+        return '/gallery/' + props.country.link + '/' + album + '/'
     };
 
     //
-    // links for places inside a country object
-    const links = Object.keys(props.country.places).map((ikey) => (
-        <li key={props.country.places[ikey].link}>
-            <NavLink to={getLocation(props.country.places[ikey])}>{props.country.places[ikey].name}</NavLink>
+    // links for albums inside a country object
+    const links = Object.keys(props.country.albums).map((index) => (
+        <li key={index}>
+            <NavLink to={getLocation(props.country.albums[index].link)}>{props.country.albums[index].name}</NavLink>
         </li>
     ));
 

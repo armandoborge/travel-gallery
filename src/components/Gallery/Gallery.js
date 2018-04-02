@@ -1,6 +1,7 @@
 //
 // import from node_modules
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 //
 // CSS import
@@ -12,25 +13,121 @@ const imagesContext = require.context('../../photos/', true);
 
 class Gallery extends Component {
     state = {
-        indexImage: 0,
+        countryIndex: 0,
+        albumIndex: 0,
+        photoIndex: 0,
         imagesList: []
+    };
+
+    //
+    // takes a link identifier as parameter
+    getCountryIndex = (country) => {
+        for (let i = 0; i < this.props.countries.length; i++) {
+            if (this.props.countries[i].link === country) {
+                return i;
+            }
+        }
+        return 0;
+    };
+
+    //
+    // takes a index value as parameter
+    getCountryLink = (countryIndex) => {
+        return this.props.countries[countryIndex].link;
+    };
+
+    //
+    // takes links identifier as parameters
+    getAlbumIndex = (country, album) => {
+        let indexCountry = this.getCountryIndex(country);
+        for (let i = 0; i < this.props.countries[indexCountry].albums.length; i++) {
+            if (this.props.countries[indexCountry].albums[i].link === album) {
+                return i;
+            }
+        }
+        return 0;
+    };
+
+    //
+    // takes index values as parameters
+    getAlbumLink = (countryIndex, albumIndex) => {
+        return this.props.countries[countryIndex].albums[albumIndex].link;
     };
 
     handlePrevImage = () => {
         this.setState((prevState) => {
-            var currentIndex = prevState.indexImage;
-            var nextIndex = currentIndex - 1;
-            var indexImage = nextIndex < 0 ? this.state.imagesList.length - 1 : nextIndex;
-            return {indexImage: indexImage}
+            var prevPhotoIndex = prevState.photoIndex - 1;
+            var prevAlbumIndex = prevState.albumIndex - 1;
+            var prevCountryIndex = prevState.countryIndex - 1;
+
+            if (prevPhotoIndex < 0) {
+                if (prevAlbumIndex < 0) {
+                    if (prevCountryIndex < 0) {
+                        //
+                        // navigate to previous country
+                        this.props.history.push(
+                            '/gallery/' + this.getCountryLink(this.props.countries.length - 1) + '/' + this.getAlbumLink(this.props.countries.length - 1, this.props.countries[this.props.countries.length - 1].albums[this.props.countries[this.props.countries.length - 1].albums.length - 1].index) + '/'
+                        );
+                    }
+                    else {
+                        this.props.history.push(
+                            '/gallery/' + this.getCountryLink(prevCountryIndex) + '/' + this.getAlbumLink(prevCountryIndex, this.props.countries[prevCountryIndex].albums[this.props.countries[prevCountryIndex].albums.length - 1].index) + '/'
+                        );
+                    }
+                }
+                else {
+                    //
+                    // navigate to previous album
+                    // TODO: find the last image in the previous album
+                    this.props.history.push(
+                        '/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, prevAlbumIndex) + '/'
+                    );
+                }
+            }
+            else {
+                //
+                // only update the image index of the current album
+                return { photoIndex: prevPhotoIndex }
+            }
         });
     };
 
     handleNextImage = () => {
         this.setState((prevState) => {
-            var currentIndex = prevState.indexImage;
-            var nextIndex = currentIndex + 1;
-            var indexImage = nextIndex > (this.state.imagesList.length - 1) ? 0 : nextIndex;
-            return {indexImage: indexImage}
+            var nextPhotoIndex = prevState.photoIndex + 1;
+            var nextAlbumIndex = prevState.albumIndex + 1;
+            var nextCountryIndex = prevState.countryIndex + 1;
+
+            if (nextPhotoIndex > prevState.imagesList.length - 1) {
+                if (nextAlbumIndex > this.props.countries[this.state.countryIndex].albums.length - 1) {
+                    if (nextCountryIndex > this.props.countries.length - 1) {
+                        //
+                        // navigate to first country
+                        this.props.history.push(
+                            '/gallery/' + this.getCountryLink(0) + '/' + this.getAlbumLink(0, 0) + '/'
+                        );
+                    }
+                    else {
+                        //
+                        // navigate to next country, first album
+                        this.props.history.push(
+                            '/gallery/' + this.getCountryLink(nextCountryIndex) + '/' + this.getAlbumLink(nextCountryIndex, 0) + '/'
+                        );
+                    }
+                }
+                else {
+                    //
+                    // navigate to next album
+                    this.props.history.push(
+                        '/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, nextAlbumIndex) + '/'
+                    );
+                }
+            }
+            else {
+                //
+                // only update the image index of the current album
+                return { photoIndex: nextPhotoIndex };
+            }
         });
     };
 
@@ -42,23 +139,27 @@ class Gallery extends Component {
         }
     };
 
+    setGallery = (config) => {
+        let contextPath = config.country + '/' + config.album + '/';
+
+        this.setState({
+            countryIndex: this.getCountryIndex(config.country),
+            albumIndex: this.getAlbumIndex(config.country, config.album),
+            photoIndex: config.photo ? config.photo : 0,
+            imagesList: imagesContext.keys().filter(img => {
+                return img.indexOf(contextPath) > -1
+            })
+        });
+    };
+
     componentWillReceiveProps(nextProps) {
-        if (nextProps.location.state.path !== this.props.location.state.path) {
-            this.setState({
-                indexImage: 0,
-                imagesList: imagesContext.keys().filter(img => {
-                    return img.indexOf(nextProps.location.state.path) > -1
-                })
-            });
+        if (nextProps.location.pathname !== this.props.location.pathname) {
+            this.setGallery(nextProps.match.params)
         }
     }
 
     componentWillMount() {
-        this.setState({
-            imagesList: imagesContext.keys().filter(img => {
-                return img.indexOf(this.props.location.state.path) > -1
-            })
-        });
+        this.setGallery(this.props.match.params);
     }
 
     componentDidMount () {
@@ -71,29 +172,20 @@ class Gallery extends Component {
 
     render() {
         let galleryStyles = {
-            background: 'url(' + imagesContext(this.state.imagesList[this.state.indexImage]) + ') center center / cover no-repeat'
+            background: 'url(' + imagesContext(this.state.imagesList[this.state.photoIndex]) + ') center center / cover no-repeat'
         };
 
-        var navButtons = null;
-        if (this.state.imagesList.length > 1) {
-            navButtons = (
-                <Fragment>
+        return (
+            <div className={styles.Gallery} style={galleryStyles}>
+                <header>
+                    <h1>{this.props.countries[this.state.countryIndex].name}</h1>
+                    <h3>{this.props.countries[this.state.countryIndex].albums[this.state.albumIndex].name}</h3>
                     <div className={styles.navLeft} onClick={this.handlePrevImage}>
                         <i className="fas fa-angle-left" />
                     </div>
                     <div className={styles.navRight} onClick={this.handleNextImage}>
                         <i className="fas fa-angle-right" />
                     </div>
-                </Fragment>
-            );
-        }
-
-        return (
-            <div className={styles.Gallery} style={galleryStyles}>
-                <header>
-                    <h1>{this.props.location.state.album}</h1>
-                    <h3>{this.props.location.state.country}</h3>
-                    {navButtons}
                 </header>
                 <div className={styles.prevPhoto} onClick={this.handlePrevImage}></div>
                 <div className={styles.nextPhoto} onClick={this.handleNextImage}></div>
@@ -102,5 +194,5 @@ class Gallery extends Component {
     }
 }
 
-export default Gallery;
+export default withRouter(Gallery);
 

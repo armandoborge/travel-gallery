@@ -12,15 +12,6 @@ import styles from './Home.css'
 import homeBackground from './home_bg.jpg';
 
 const home = () => {
-    let firstPhotoSet = {
-        pathname: '/gallery/argentina/el-calafate',
-        state: {
-            country: 'Argentina',
-            album: 'El Calafate',
-            path:  'argentina/el-calafate'
-        }
-    };
-
     let homeBackgroundStyles = {
         background: 'url(' + homeBackground + ') center center / cover no-repeat'
     };
@@ -42,7 +33,7 @@ const home = () => {
                             </a>
                         </li>
                         <li>
-                            <Link to={firstPhotoSet}>
+                            <Link to='/gallery/argentina/el-calafate/'>
                                 <i className="fas fa-images" />
                                 <span>Ir a Fotos</span>
                             </Link>
