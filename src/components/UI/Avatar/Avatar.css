@@ -29,3 +29,26 @@
     text-decoration: none;
     color: var(--color-saddle-brown);
 }
+
+
+/* iPhone 6, 7, & 8 in landscape */
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : landscape) {
+    .Avatar {
+        padding: 15px 0;
+        height: var(--avatar-height-landscape);
+    }
+    .Avatar img {
+        display: none;
+    }
+}
+
+/* iPhone X in landscape */
+@media only screen and (min-device-width : 375px) and (max-device-width : 812px) and (-webkit-device-pixel-ratio : 3) and (orientation : landscape) {
+    .Avatar {
+        padding: 15px 0;
+        height: var(--avatar-height-landscape);
+    }
+    .Avatar img {
+        display: none;
+    }
+}

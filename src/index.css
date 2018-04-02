@@ -8,6 +8,7 @@
     --sidebar-width: 270px;
     --avatar-height: 250px;
     --sidebar-width-negative: -270px;
+    --avatar-height-landscape: 113px;
 }
 
 html, body {
