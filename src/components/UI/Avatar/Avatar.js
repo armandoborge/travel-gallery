@@ -12,10 +12,10 @@ import styles from './Avatar.css'
 import profileImage from './avatar.jpg';
 
 
-const avatar = () => (
+const avatar = (props) => (
     <div className={styles.Avatar}>
         <img src={profileImage} alt="Armando Borge" />
-        <Link to="/home">
+        <Link to="/home" onClick={props.closed}>
             <h1>Armando Borge</h1>
             <p>Fotos de Viajes</p>
         </Link>

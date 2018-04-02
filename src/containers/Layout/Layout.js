@@ -82,7 +82,7 @@ class Layout extends Component {
                 <Sidebar
                     toggled={this.sidebarToggleHandler}
                     showSidebar={this.state.showSidebar}>
-                    <Avatar />
+                    <Avatar closed={this.sidebarCloseHandler} />
                     <Navigation countries={this.state.countriesList} closed={this.sidebarCloseHandler} />
                 </Sidebar>
                 <main className={mainClasses.join(' ')}>
