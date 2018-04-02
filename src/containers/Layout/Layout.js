@@ -67,6 +67,14 @@ class Layout extends Component {
         });
     };
 
+    sidebarCloseHandler = () => {
+        if (window.innerWidth < 670) {
+            this.setState((prevState) => {
+                return {showSidebar: false}
+            });
+        }
+    };
+
     render() {
         const mainClasses = this.state.showSidebar ? [styles.Main, styles.showSidebar] : [styles.Main];
         return (
@@ -75,7 +83,7 @@ class Layout extends Component {
                     toggled={this.sidebarToggleHandler}
                     showSidebar={this.state.showSidebar}>
                     <Avatar />
-                    <Navigation countries={this.state.countriesList} />
+                    <Navigation countries={this.state.countriesList} closed={this.sidebarCloseHandler} />
                 </Sidebar>
                 <main className={mainClasses.join(' ')}>
                     <Switch>

@@ -14,7 +14,7 @@ const navigation = (props) => {
     const countriesMenu = Object.keys(props.countries).map((index) => {
         return (
             <li key={index}>
-                <CountryLinks country={props.countries[index]} />
+                <CountryLinks country={props.countries[index]} closed={props.closed} />
             </li>
         );
     });
