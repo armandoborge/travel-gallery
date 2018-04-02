@@ -88,7 +88,7 @@ class Layout extends Component {
                 <main className={mainClasses.join(' ')}>
                     <Switch>
                         <Route path="/home" exact render={() => <Home showSidebar={this.state.showSidebar} />} />
-                        <Route path="/gallery/:country/:album/:photo?" render={() => <Gallery countries={this.state.countriesList} />} />
+                        <Route path="/gallery/:country/:album/:photo?" render={() => <Gallery countries={this.state.countriesList} showSidebar={this.state.showSidebar} />} />
                         <Redirect to="/home" />
                     </Switch>
                 </main>

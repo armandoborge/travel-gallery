@@ -182,9 +182,11 @@ class Gallery extends Component {
             background: 'url(' + imagesContext(this.state.imagesList[this.state.photoIndex]) + ') center center / cover no-repeat'
         };
 
+        const headerStyles = this.props.showSidebar ? [styles.showSidebar] : [];
+
         return (
             <div className={styles.Gallery} style={galleryStyles}>
-                <header>
+                <header className={headerStyles.join(' ')}>
                     <h1>{this.props.countries[this.state.countryIndex].name}</h1>
                     <h3>{this.props.countries[this.state.countryIndex].albums[this.state.albumIndex].name}</h3>
                     <div className={styles.navLeft} onClick={this.handlePrevImage}>
