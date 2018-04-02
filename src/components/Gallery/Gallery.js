@@ -56,9 +56,9 @@ class Gallery extends Component {
 
     handlePrevImage = () => {
         this.setState((prevState) => {
-            var prevPhotoIndex = prevState.photoIndex - 1;
-            var prevAlbumIndex = prevState.albumIndex - 1;
-            var prevCountryIndex = prevState.countryIndex - 1;
+            var prevPhotoIndex = parseInt(prevState.photoIndex, 10) - 1;
+            var prevAlbumIndex = parseInt(prevState.albumIndex, 10) - 1;
+            var prevCountryIndex = parseInt(prevState.countryIndex, 10) - 1;
 
             if (prevPhotoIndex < 0) {
                 if (prevAlbumIndex < 0) {
@@ -94,16 +94,16 @@ class Gallery extends Component {
             else {
                 //
                 // next photo
-                return { photoIndex: prevPhotoIndex }
+                this.props.history.push('/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, this.state.albumIndex)  + '/' + prevPhotoIndex);
             }
         });
     };
 
     handleNextImage = () => {
         this.setState((prevState) => {
-            var nextPhotoIndex = prevState.photoIndex + 1;
-            var nextAlbumIndex = prevState.albumIndex + 1;
-            var nextCountryIndex = prevState.countryIndex + 1;
+            var nextPhotoIndex = parseInt(prevState.photoIndex, 10) + 1;
+            var nextAlbumIndex = parseInt(prevState.albumIndex, 10) + 1;
+            var nextCountryIndex = parseInt(prevState.countryIndex, 10) + 1;
 
             if (nextPhotoIndex > prevState.imagesList.length - 1) {
                 if (nextAlbumIndex > this.props.countries[this.state.countryIndex].albums.length - 1) {
@@ -111,14 +111,14 @@ class Gallery extends Component {
                         //
                         // navigate to first country
                         this.props.history.push(
-                            '/gallery/' + this.getCountryLink(0) + '/' + this.getAlbumLink(0, 0) + '/'
+                            '/gallery/' + this.getCountryLink(0) + '/' + this.getAlbumLink(0, 0) + '/' + 0
                         );
                     }
                     else {
                         //
                         // navigate to next country, first album
                         this.props.history.push(
-                            '/gallery/' + this.getCountryLink(nextCountryIndex) + '/' + this.getAlbumLink(nextCountryIndex, 0) + '/'
+                            '/gallery/' + this.getCountryLink(nextCountryIndex) + '/' + this.getAlbumLink(nextCountryIndex, 0) + '/' + 0
                         );
                     }
                 }
@@ -126,14 +126,14 @@ class Gallery extends Component {
                     //
                     // navigate to next album
                     this.props.history.push(
-                        '/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, nextAlbumIndex) + '/'
+                        '/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, nextAlbumIndex) + '/' + 0
                     );
                 }
             }
             else {
                 //
                 // only update the image index of the current album
-                return { photoIndex: nextPhotoIndex };
+                this.props.history.push('/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, this.state.albumIndex)  + '/' + nextPhotoIndex);
             }
         });
     };
