@@ -14,7 +14,9 @@ const countryLinks = (props) => {
     // links for albums inside a country object
     const links = Object.keys(props.country.albums).map((index) => (
         <li key={index} onClick={props.closed}>
-            <NavLink to={getLocation(props.country.albums[index].link)}>{props.country.albums[index].name}</NavLink>
+            <NavLink to={getLocation(props.country.albums[index].link)} activeStyle={{ color: 'var(--color-light-steel-blue)' }}>
+                {props.country.albums[index].name}
+            </NavLink>
         </li>
     ));
 
