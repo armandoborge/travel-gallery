@@ -42,7 +42,7 @@
 }
 
 .Links li {
-    min-width: 85px;
+    min-width: 80px;
     text-align: center;
     margin: 2px 15px;
     display: inline-block;
@@ -57,6 +57,21 @@
     margin: 7px;
     display: block;
     font-size: 14px;
+}
+
+
+/* iPhone 6, 7, & 8 in portrait */
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
+    .showSidebar {
+        display: none;
+    }
+}
+
+/* iPhone X in portrait */
+@media only screen and (min-device-width : 375px) and (max-device-width : 812px) and (-webkit-device-pixel-ratio : 3) and (orientation : portrait) {
+    .showSidebar {
+        display: none;
+    }
 }
 
 /* Large devices (desktops, 992px and up)*/

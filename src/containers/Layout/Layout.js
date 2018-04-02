@@ -87,7 +87,7 @@ class Layout extends Component {
                 </Sidebar>
                 <main className={mainClasses.join(' ')}>
                     <Switch>
-                        <Route path="/home" exact component={Home} />
+                        <Route path="/home" exact render={() => <Home showSidebar={this.state.showSidebar} />} />
                         <Route path="/gallery/:country/:album/:photo?" render={() => <Gallery countries={this.state.countriesList} />} />
                         <Redirect to="/home" />
                     </Switch>
