@@ -67,6 +67,26 @@
     float: right;
 }
 
+@keyframes Spinner {
+    to {transform: rotate(360deg);}
+}
+
+.Spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    border-radius: 50%;
+    border: 3px solid var(--color-saddle-brown);
+    border-top-color: var(--color-light-sea-green);
+    animation: Spinner .8s linear infinite;
+}
+
 /* iPhone 6, 7, & 8 in portrait */
 @media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
     .showSidebar {

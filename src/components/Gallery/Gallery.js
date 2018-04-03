@@ -16,7 +16,8 @@ class Gallery extends Component {
         countryIndex: 0,
         albumIndex: 0,
         photoIndex: 0,
-        imagesList: []
+        imagesList: [],
+        loading: true,
     };
 
     //
@@ -148,15 +149,25 @@ class Gallery extends Component {
 
     setGallery = (config) => {
         let contextPath = config.country + '/' + config.album + '/';
-
-        this.setState({
+        let stateObj = {
+            loading: true,
             countryIndex: this.getCountryIndex(config.country),
             albumIndex: this.getAlbumIndex(config.country, config.album),
             photoIndex: config.photo ? config.photo : 0,
             imagesList: imagesContext.keys().filter(img => {
                 return img.indexOf(contextPath) > -1
             })
-        });
+        };
+
+        this.setState(stateObj);
+
+        //
+        // wait for image load
+        let img = new Image();
+        img.src = imagesContext(stateObj.imagesList[stateObj.photoIndex]);
+        img.onload = () => {
+            this.setState({loading: false});
+        }
     };
 
     componentWillReceiveProps(nextProps) {
@@ -179,13 +190,24 @@ class Gallery extends Component {
 
     render() {
         let galleryStyles = {
-            background: 'url(' + imagesContext(this.state.imagesList[this.state.photoIndex]) + ') center center / cover no-repeat'
+            background: this.state.loading ? 'none' : 'url(' + imagesContext(this.state.imagesList[this.state.photoIndex]) + ') center center / cover no-repeat'
         };
+
+        let spinner = null;
+        if (this.state.loading) {
+            spinner = (
+                <div className={styles.Spinner}>
+                    <div></div>
+                    <div></div>
+                </div>
+            )
+        }
 
         const headerStyles = this.props.showSidebar ? [styles.showSidebar] : [];
 
         return (
             <div className={styles.Gallery} style={galleryStyles}>
+                {spinner}
                 <header className={headerStyles.join(' ')}>
                     <h1>{this.props.countries[this.state.countryIndex].name}</h1>
                     <h3>{this.props.countries[this.state.countryIndex].albums[this.state.albumIndex].name}</h3>
