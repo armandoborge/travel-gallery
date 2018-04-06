@@ -1,14 +1,14 @@
 :root {
-    --color-navy: #17263C;
-    --color-saddle-brown: #E2CB9E;
-    --color-light-steel-blue: #E5F7FA;
-    --color-black: #282721;
-    --color-light-sea-green: #425A6A;
+    --color-big-stone: #17263C;
+    --color-brandy: #E2CB9E;
+    --color-polar: #E5F7FA;
+    --color-rangitoto: #282721;
+    --color-fiord: #425A6A;
 
     --sidebar-width: 270px;
     --avatar-height: 250px;
     --sidebar-width-negative: -270px;
-    --avatar-height-landscape: 113px;
+    --avatar-height-landscape: 81px;
 }
 
 html, body {
@@ -17,7 +17,7 @@ html, body {
     padding: 0;
     font-weight: 300;
     overflow-x: hidden;
-    background: var(--color-navy);
+    background: var(--color-big-stone);
     font-family: 'Raleway', sans-serif;
 }
 

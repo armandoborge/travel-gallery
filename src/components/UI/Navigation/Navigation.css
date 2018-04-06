@@ -1,5 +1,5 @@
 .Navigation {
-    color: var(--color-light-steel-blue);
+    color: var(--color-polar);
     height: calc(100vh - var(--avatar-height));
     overflow: scroll;
     padding-bottom: 10px;
@@ -19,7 +19,7 @@
     text-align: left;
     font-size: 14px;
     text-decoration: none;
-    color: var(--color-saddle-brown);
+    color: var(--color-brandy);
 }
 
 .Navigation ul li h3 {
@@ -28,9 +28,9 @@
     margin-bottom: 15px;
     font-weight: 300;
     text-align: left;
-    color: var(--color-light-steel-blue);
+    color: var(--color-polar);
     background-repeat: repeat;
-    border-bottom: 1px dotted var(--color-light-steel-blue);
+    border-bottom: 1px dotted var(--color-polar);
 }
 
 
