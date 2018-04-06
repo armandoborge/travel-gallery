@@ -15,11 +15,12 @@
 }
 
 .Avatar a {
-    bottom: 0;
+    top: 0;
     display: block;
     position: absolute;
     text-decoration: none;
     width: 100%;
+    height: var(--avatar-height-landscape);
     background: rgba(0, 0, 0, 0.4);
 }
 .Avatar h1 {

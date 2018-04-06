@@ -20,7 +20,7 @@
     height: 83px;
     background: rgba(0, 0, 0, 0.5);
 
-    top: 167px;
+    top: 0;
     right: -46px;
     cursor: pointer;
     position: absolute;
@@ -36,19 +36,4 @@
 .content {
     width: 100%;
     height: 100%;
-}
-
-
-/* iPhone 6, 7, & 8 in landscape */
-@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : landscape) {
-    .toggle {
-        top: 0;
-    }
-}
-
-/* iPhone X in landscape */
-@media only screen and (min-device-width : 375px) and (max-device-width : 812px) and (-webkit-device-pixel-ratio : 3) and (orientation : landscape) {
-    .toggle {
-        top: 0;
-    }
 }
