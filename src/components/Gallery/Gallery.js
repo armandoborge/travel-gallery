@@ -7,17 +7,13 @@ import { withRouter } from 'react-router-dom';
 // CSS import
 import styles from './Gallery.css'
 
-//
-// get photos context
-const imagesContext = require.context('../../photos/', true);
-
 class Gallery extends Component {
     state = {
         countryIndex: 0,
         albumIndex: 0,
         photoIndex: 0,
         imagesList: [],
-        loading: true,
+        loading: true
     };
 
     //
@@ -67,8 +63,7 @@ class Gallery extends Component {
                         //
                         // navigate to the last country
                         let contextPath = this.getCountryLink(this.props.countries.length - 1) + '/' + this.getAlbumLink(this.props.countries.length - 1, this.props.countries[this.props.countries.length - 1].albums[this.props.countries[this.props.countries.length - 1].albums.length - 1].index) + '/';
-                        let imagesCounter = imagesContext.keys().filter(img => {return img.indexOf(contextPath) > -1});
-                        let imageIndex = imagesCounter.length - 1;
+                        let imageIndex = this.props.countries[this.props.countries.length - 1].albums[this.props.countries[this.props.countries.length - 1].albums.length - 1].photos.length - 1;
 
                         this.props.history.push('/gallery/' + contextPath + imageIndex);
                     }
@@ -76,8 +71,7 @@ class Gallery extends Component {
                         //
                         // navigate to previous country
                         let contextPath = this.getCountryLink(prevCountryIndex) + '/' + this.getAlbumLink(prevCountryIndex, this.props.countries[prevCountryIndex].albums[this.props.countries[prevCountryIndex].albums.length - 1].index) + '/';
-                        let imagesCounter = imagesContext.keys().filter(img => {return img.indexOf(contextPath) > -1});
-                        let imageIndex = imagesCounter.length - 1;
+                        let imageIndex = this.props.countries[prevCountryIndex].albums[this.props.countries[prevCountryIndex].albums.length - 1].photos.length - 1;
 
                         this.props.history.push('/gallery/' + contextPath + imageIndex);
                     }
@@ -86,8 +80,7 @@ class Gallery extends Component {
                     //
                     // navigate to previous album, last photo
                     let contextPath = this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, prevAlbumIndex)  + '/';
-                    let imagesCounter = imagesContext.keys().filter(img => {return img.indexOf(contextPath) > -1});
-                    let imageIndex = imagesCounter.length - 1;
+                    let imageIndex = this.props.countries[this.state.countryIndex].albums[prevAlbumIndex].photos.length - 1;
 
                     this.props.history.push('/gallery/' + contextPath + imageIndex);
                 }
@@ -148,15 +141,15 @@ class Gallery extends Component {
     };
 
     setGallery = (config) => {
-        let contextPath = config.country + '/' + config.album + '/';
+        let countryIndex = this.getCountryIndex(config.country);
+        let albumIndex = this.getAlbumIndex(config.country, config.album);
+
         let stateObj = {
             loading: true,
-            countryIndex: this.getCountryIndex(config.country),
-            albumIndex: this.getAlbumIndex(config.country, config.album),
+            countryIndex: countryIndex,
+            albumIndex: albumIndex,
             photoIndex: config.photo ? config.photo : 0,
-            imagesList: imagesContext.keys().filter(img => {
-                return img.indexOf(contextPath) > -1
-            })
+            imagesList: this.props.countries[countryIndex].albums[albumIndex].photos
         };
 
         this.setState(stateObj);
@@ -164,7 +157,7 @@ class Gallery extends Component {
         //
         // wait for image load
         let img = new Image();
-        img.src = imagesContext(stateObj.imagesList[stateObj.photoIndex]);
+        img.src = stateObj.imagesList[stateObj.photoIndex];
         img.onload = () => {
             this.setState({loading: false});
         }
@@ -190,7 +183,7 @@ class Gallery extends Component {
 
     render() {
         let galleryStyles = {
-            background: this.state.loading ? 'none' : 'url(' + imagesContext(this.state.imagesList[this.state.photoIndex]) + ') center center / cover no-repeat'
+            background: 'url(' + this.state.imagesList[this.state.photoIndex] + ') center center / cover no-repeat'
         };
 
         let spinner = null;

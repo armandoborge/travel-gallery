@@ -17,12 +17,13 @@ import Navigation from '../../components/UI/Navigation/Navigation';
 
 //
 // import countries
-import countries from './Countries';
+import countriesNames from './Countries';
 
 //
 // styles import
 import styles from './Layout.css'
 
+let countries = process.env.REACT_APP_FOLDER_STRUCTURE;
 
 class Layout extends Component {
     state = {
@@ -35,26 +36,35 @@ class Layout extends Component {
         // prepare the country data
         let countriesList = [];
         let a = 0;
+        let p = 0;
 
-        for (let c = 0; c < countries.length; c++) {
-            //
-            // add name
+        //
+        // add countries
+        Object.keys(countries).map((c) => {
             countriesList[c] = {
                 index: c,
-                name: countries[c].name,
-                link: countries[c].link,
+                name: countriesNames[0][Object.keys(countries[c])[0]],
+                link: Object.keys(countries[c])[0],
                 albums: []
             };
             //
             // add albums
-            for (a = 0; a < countries[c].albums.length; a++) {
+            for (a = 0; a < countries[c][countriesList[c].link].length; a++) {
                 countriesList[c].albums[a] = {
                     index: a,
-                    name: countries[c].albums[a].name,
-                    link: countries[c].albums[a].link
+                    name: countriesNames[0][Object.keys(countries[c][countriesList[c].link][a])[0]],
+                    link: Object.keys(countries[c][countriesList[c].link][a])[0],
+                    photos: countries[c][countriesList[c].link][a][Object.keys(countries[c][countriesList[c].link][a])[0]]
+                };
+                //
+                // add photos
+                for (p = 0; p < countriesList[c].albums[a].photos.length; p++) {
+                    countriesList[c].albums[a].photos[p] = '/photos/' + countriesList[c].link + '/' + countriesList[c].albums[a].link + '/' + countriesList[c].albums[a].photos[p]
                 }
             }
-        }
+
+            return false;
+        });
 
         this.setState({
             countriesList: countriesList
@@ -69,9 +79,7 @@ class Layout extends Component {
 
     sidebarCloseHandler = () => {
         if (window.innerWidth < 670) {
-            this.setState((prevState) => {
-                return {showSidebar: false}
-            });
+            this.setState({ showSidebar: false });
         }
     };
 

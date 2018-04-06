@@ -7,6 +7,21 @@ const paths = require('./paths');
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
 
+const allFilesSync = (dir, fileList = []) => {
+  fs.readdirSync(dir).forEach(file => {
+    const filePath = path.join(dir, file);
+
+    if (file[0] !== '.') { // ignore hidden items
+      fileList.push(
+          fs.statSync(filePath).isDirectory()
+              ? {[file]: allFilesSync(filePath)}
+              : file
+      )
+    }
+  });
+  return fileList
+};
+
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
   throw new Error(
@@ -77,6 +92,7 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+        REACT_APP_FOLDER_STRUCTURE: allFilesSync(paths.appPublic + '/photos')
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
