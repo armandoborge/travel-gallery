@@ -27,13 +27,13 @@ const home = (props) => {
                 <ul className={styles.Links}>
                     <li>
                         <a href="http://armandoborge.com/" target="_blank" title="Armando Borge" rel="noopener noreferrer">
-                            <i className="fas fa-chess" />
+                            <i className="fas fa-code" />
                             <span>Mi Web</span>
                         </a>
                     </li>
                     <li>
                         <Link to='/gallery/argentina/el-cafayate/'>
-                            <i className="fas fa-globe" />
+                            <i className="fas fa-camera" />
                             <span>Galería</span>
                         </Link>
                     </li>
