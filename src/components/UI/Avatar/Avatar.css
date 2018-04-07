@@ -21,7 +21,7 @@
     text-decoration: none;
     width: 100%;
     height: var(--avatar-height-landscape);
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--color-translucid-layer);
 }
 .Avatar h1 {
     font-weight: 300;

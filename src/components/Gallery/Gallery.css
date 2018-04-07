@@ -14,7 +14,7 @@
     padding: 10px 30px;
     position: absolute;
     color: var(--color-polar);
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--color-translucid-layer);
 }
 
 .Gallery header h1 {
