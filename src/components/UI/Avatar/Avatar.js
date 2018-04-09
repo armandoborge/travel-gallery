@@ -17,7 +17,7 @@ const avatar = (props) => (
         <img src={profileImage} alt="Armando Borge" />
         <Link to="/home" onClick={props.closed}>
             <h1>Armando Borge</h1>
-            <p>Fotos de Viaje</p>
+            <p>Travel Gallery</p>
         </Link>
     </div>
 );

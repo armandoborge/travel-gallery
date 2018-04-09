@@ -21,20 +21,20 @@ const home = (props) => {
     return (
         <div className={styles.Home} style={homeBackgroundStyles}>
             <div className={homeContentClasses.join(' ')}>
-                <h1>Fotos de Viaje</h1>
-                <p>Luego de algún tiempo viajando decidí poner en Internet mis <Link to='/gallery/argentina/el-cafayate/'>fotos favoritas</Link> de los lugares que he visitado. No logré encontrar un diseño web de mi gusto, así que he creado una aplicación en Javascript usando <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer" title="React">React</a> para para construir lo que tenía en mi mente y divertirme un poco en el proceso.</p>
-                <p>El código fuente esta disponible en <a href="https://github.com/armandoborge/travel-gallery" target="_blank" rel="noopener noreferrer" title="Travel Gallery GitHub">GitHub</a>. En el camino iré haciendo mejoras y subiendo mas fotos.</p>
+                <h1>Travel Gallery</h1>
+                <p>After some time traveling with my girlfriend I decided to create a <Link to='/gallery/argentina/el-cafayate/'>photo gallery</Link> of my favorite places. I couldn't find a design of my liking, so I created an application in Javascript using <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer" title="React">React</a> to build what I had in my mind and have a little fun in the process.</p>
+                <p>The source code is available on <a href="https://github.com/armandoborge/travel-gallery" target="_blank" rel="noopener noreferrer" title="Travel Gallery GitHub">GitHub</a>.<br/>On the way I'll be making improvements and uploading more pictures.</p>
                 <ul className={styles.Links}>
                     <li>
                         <a href="http://armandoborge.com/" target="_blank" title="Armando Borge" rel="noopener noreferrer">
                             <i className="fas fa-code" />
-                            <span>Mi Web</span>
+                            <span>About Me</span>
                         </a>
                     </li>
                     <li>
                         <Link to='/gallery/argentina/el-cafayate/'>
                             <i className="fas fa-camera" />
-                            <span>Galería</span>
+                            <span>Pictures</span>
                         </Link>
                     </li>
                     <li>
