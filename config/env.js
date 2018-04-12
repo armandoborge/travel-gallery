@@ -30,7 +30,7 @@ const getTheme = () => {
   process.argv.forEach(argument => {
     if (argument.indexOf('THEME') >= 0) {
       let argTheme = argument.split('=')[1];
-      theme = ['BigStone', 'ClamShell'].includes(argTheme) ? argTheme : 'BigStone';
+      theme = ['BigStone', 'ClamShell', 'OldTimes'].includes(argTheme) ? argTheme : 'BigStone';
     }
   });
   return theme;
