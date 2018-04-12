@@ -1,4 +1,14 @@
 :root {
+    --sidebar-width: 270px;
+    --avatar-height: 250px;
+    --sidebar-width-negative: -270px;
+    --avatar-height-landscape: 83px;
+}
+
+/*
+ * TODO: load themes dynamically
+ */
+.theme_BigStone {
     --color-big-stone: #17263C;
     --color-brandy: #E2CB9E;
     --color-polar: #E5F7FA;
@@ -6,10 +16,18 @@
     --color-fiord: #425A6A;
     --color-translucid-layer: rgba(0, 0, 0, 0.4);
 
-    --sidebar-width: 270px;
-    --avatar-height: 250px;
-    --sidebar-width-negative: -270px;
-    --avatar-height-landscape: 83px;
+}
+
+/*
+ * TODO: load themes dynamically
+ */
+.theme_ClamShell {
+    --color-big-stone: #2B2D57;
+    --color-brandy: #CfA8AC;
+    --color-polar: #FFFFFF;
+    --color-rangitoto: #2B282B;
+    --color-fiord: #9ADCEB;
+    --color-translucid-layer: rgba(43, 45, 87, 0.4);
 }
 
 html, body {

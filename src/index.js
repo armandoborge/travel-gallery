@@ -5,13 +5,12 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 //
-// load app and basic styles
-import App from './App';
-import './index.css'
+// Layout
+import Layout from './containers/Layout/Layout'
 
 const app = (
     <BrowserRouter>
-        <App />
+        <Layout />
     </BrowserRouter>
 );
 

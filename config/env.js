@@ -22,6 +22,20 @@ const allFilesSync = (dir, fileList = []) => {
   return fileList
 };
 
+//
+// get theme, this define global colors scheme
+// default: BigStone
+const getTheme = () => {
+  var theme = 'BigStone';
+  process.argv.forEach(argument => {
+    if (argument.indexOf('THEME') >= 0) {
+      let argTheme = argument.split('=')[1];
+      theme = ['BigStone', 'ClamShell'].includes(argTheme) ? argTheme : 'BigStone';
+    }
+  });
+  return theme;
+};
+
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
   throw new Error(
@@ -92,7 +106,8 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
-        REACT_APP_FOLDER_STRUCTURE: allFilesSync(paths.appPublic + '/photos')
+        REACT_APP_FOLDER_STRUCTURE: allFilesSync(paths.appPublic + '/photos'),
+        REACT_APP_THEME: getTheme()
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
