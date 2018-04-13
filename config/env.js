@@ -152,7 +152,8 @@ function getClientEnvironment(publicUrl) {
         REACT_APP_PROFILE_IMG: profiles[appProfileData].profileImage,
         REACT_APP_META_DESC: profiles[appProfileData].metaDescription,
         REACT_APP_META_KEYWORDS: profiles[appProfileData].metaKeywords,
-        REACT_APP_HOME_DESC: profiles[appProfileData].homeDescription
+        REACT_APP_HOME_DESC: profiles[appProfileData].homeDescription,
+        REACT_APP_HOME_LINKS: profiles[appProfileData].homeLinks
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
