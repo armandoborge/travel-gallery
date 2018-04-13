@@ -163,12 +163,16 @@ class Gallery extends Component {
         }
     };
 
+    //
+    // TODO: remove method due to React 16.3 changes
     componentWillReceiveProps(nextProps) {
         if (nextProps.location.pathname !== this.props.location.pathname) {
             this.setGallery(nextProps.match.params)
         }
     }
 
+    //
+    // TODO: remove method due to React 16.3 changes
     componentWillMount() {
         this.setGallery(this.props.match.params);
     }

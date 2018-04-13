@@ -1,40 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>%REACT_APP_PROFILE_NAME% - %REACT_APP_APP_NAME%</title>
     <meta charset="utf-8">
+    <meta name="description" content="%REACT_APP_META_DESC%">
+    <meta name="keywords" content="%REACT_APP_META_KEYWORDS%">
+    <meta name="author" content="%REACT_APP_PROFILE_NAME%">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#000000">
+
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Armando Borge - Travel Gallery</title>
-    <!--
-      Attach PUBLIC_URL variable to the window object, this way the value can be accessed in the ReactJS components
-    -->
-    <script>window.PUBLIC_URL = "%PUBLIC_URL%"</script>
-    <!--
-      Custom fonts, courtesy of Google Fonts
-    -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
-    <!--
-      Font Awesome
-    -->
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-    <!--
-     Custom CSS outside Webpack, CSS Modules
-    -->
     <link rel="stylesheet" href="%PUBLIC_URL%/index.css" />
   </head>
   <body class="theme_%REACT_APP_THEME%">

@@ -6,7 +6,11 @@ const paths = require('./paths');
 
 //
 // import countries names
-const countriesNames = require('../data/Countries');
+const countriesNames = require('../data/countries');
+
+//
+// import profiles data
+const profiles = require('../data/profiles');
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
@@ -54,17 +58,16 @@ const allFilesSync = (dir, firstLevel = false, fileList = []) => {
 };
 
 //
-// get theme, this functoin define which global colors scheme the app will use
+// get theme, this function define which global colors scheme the app will use
 // default: BigStone theme
-const getTheme = () => {
-  var theme = 'BigStone';
-  process.argv.forEach(argument => {
-    if (argument.indexOf('THEME') >= 0) {
-      let argTheme = argument.split('=')[1];
-      theme = ['BigStone', 'ClamShell', 'OldTimes'].includes(argTheme) ? argTheme : 'BigStone';
-    }
-  });
-  return theme;
+const getTheme = (theme) => {
+  return ['BigStone', 'ClamShell', 'OldTimes'].includes(theme) ? theme : 'BigStone';
+};
+
+//
+// get profile, only two profiles are supported for now
+const getDataProfile = (profile) => {
+  return ['armando', 'melisa'].includes(profile) ? profile : 'armando';
 };
 
 const NODE_ENV = process.env.NODE_ENV;
@@ -121,6 +124,8 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 
 function getClientEnvironment(publicUrl) {
+  let appProfileData = getDataProfile(process.argv[2]);
+
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
     .reduce(
@@ -137,8 +142,16 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+        //
+        // Custom variables
+        //
+        REACT_APP_APP_NAME: profiles[appProfileData].appName,
+        REACT_APP_PROFILE_NAME: profiles[appProfileData].profileName,
+        REACT_APP_THEME: getTheme(profiles[appProfileData].appTheme),
         REACT_APP_FOLDER_STRUCTURE: allFilesSync(paths.appPublic + '/photos', true),
-        REACT_APP_THEME: getTheme()
+        REACT_APP_PROFILE_IMG: profiles[appProfileData].profileImage,
+        REACT_APP_META_DESC: profiles[appProfileData].metaDescription,
+        REACT_APP_META_KEYWORDS: profiles[appProfileData].metaKeywords
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
