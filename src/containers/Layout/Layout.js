@@ -16,60 +16,15 @@ import Avatar from '../../components/UI/Avatar/Avatar';
 import Navigation from '../../components/UI/Navigation/Navigation';
 
 //
-// import countries
-import countriesNames from './Countries';
-
-//
 // styles import
 import styles from './Layout.css'
 
-let countries = process.env.REACT_APP_FOLDER_STRUCTURE;
 
 class Layout extends Component {
     state = {
-        countriesList: [],
+        countriesList: process.env.REACT_APP_FOLDER_STRUCTURE,
         showSidebar: window.innerWidth >= 670
     };
-
-    componentWillMount() {
-        //
-        // prepare the country data
-        let countriesList = [];
-        let a = 0;
-        let p = 0;
-
-        //
-        // add countries
-        Object.keys(countries).map((c) => {
-            countriesList[c] = {
-                index: c,
-                name: countriesNames[0][Object.keys(countries[c])[0]],
-                link: Object.keys(countries[c])[0],
-                albums: []
-            };
-            //
-            // add albums
-            for (a = 0; a < countries[c][countriesList[c].link].length; a++) {
-                countriesList[c].albums[a] = {
-                    index: a,
-                    name: countriesNames[0][Object.keys(countries[c][countriesList[c].link][a])[0]],
-                    link: Object.keys(countries[c][countriesList[c].link][a])[0],
-                    photos: countries[c][countriesList[c].link][a][Object.keys(countries[c][countriesList[c].link][a])[0]]
-                };
-                //
-                // add photos
-                for (p = 0; p < countriesList[c].albums[a].photos.length; p++) {
-                    countriesList[c].albums[a].photos[p] = '/photos/' + countriesList[c].link + '/' + countriesList[c].albums[a].link + '/' + countriesList[c].albums[a].photos[p]
-                }
-            }
-
-            return false;
-        });
-
-        this.setState({
-            countriesList: countriesList
-        })
-    }
 
     sidebarToggleHandler = () => {
         this.setState((prevState) => {

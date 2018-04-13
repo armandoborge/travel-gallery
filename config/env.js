@@ -4,27 +4,58 @@ const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
 
+//
+// import countries names
+const countriesNames = require('../data/Countries');
+
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
 
-const allFilesSync = (dir, fileList = []) => {
-  fs.readdirSync(dir).forEach(file => {
+//
+// generate the data structure for places/albums/photos that the app uses
+// for the main navigation in the gallery section
+const allFilesSync = (dir, firstLevel = false, fileList = []) => {
+  fs.readdirSync(dir).forEach((file, index) => {
     const filePath = path.join(dir, file);
 
     if (file[0] !== '.') { // ignore hidden items
-      fileList.push(
-          fs.statSync(filePath).isDirectory()
-              ? {[file]: allFilesSync(filePath)}
-              : file
-      )
+      if (fs.statSync(filePath).isDirectory()) {
+        if (firstLevel) {
+          fileList.push({
+            'index': index - 1,
+            'link': file,
+            'name': countriesNames[file],
+            'albums': allFilesSync(filePath, false)
+          });
+        }
+        else {
+          fileList.push({
+            'index': index - 1,
+            'link': file,
+            'name': countriesNames[file],
+            'photos': allFilesSync(filePath, false)
+          });
+        }
+      }
+      else {
+        if (firstLevel) {
+          fileList.push(file);
+        }
+        else {
+          fileList.push(filePath.substr(
+              filePath.indexOf('/photos'), filePath.length
+            )
+          );
+        }
+      }
     }
   });
   return fileList
 };
 
 //
-// get theme, this define global colors scheme
-// default: BigStone
+// get theme, this functoin define which global colors scheme the app will use
+// default: BigStone theme
 const getTheme = () => {
   var theme = 'BigStone';
   process.argv.forEach(argument => {
@@ -106,7 +137,7 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
-        REACT_APP_FOLDER_STRUCTURE: allFilesSync(paths.appPublic + '/photos'),
+        REACT_APP_FOLDER_STRUCTURE: allFilesSync(paths.appPublic + '/photos', true),
         REACT_APP_THEME: getTheme()
       }
     );
