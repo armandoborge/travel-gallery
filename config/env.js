@@ -10,7 +10,7 @@ const countriesNames = require('../data/countries');
 
 //
 // import profiles data
-const profiles = require('../data/profiles');
+const profiles = require('../data/profiles/profiles');
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
@@ -68,6 +68,15 @@ const getTheme = (theme) => {
 // get profile, only two profiles are supported for now
 const getDataProfile = (profile) => {
   return ['armando', 'melisa'].includes(profile) ? profile : 'armando';
+};
+
+
+//
+// get profile image string in base64
+const getProfileImage = (imagePath) => {
+  //
+  // read binary data and return base64
+  return fs.readFileSync(imagePath, 'base64');
 };
 
 const NODE_ENV = process.env.NODE_ENV;
@@ -149,7 +158,7 @@ function getClientEnvironment(publicUrl) {
         REACT_APP_PROFILE_NAME: profiles[appProfileData].profileName,
         REACT_APP_THEME: getTheme(profiles[appProfileData].appTheme),
         REACT_APP_FOLDER_STRUCTURE: allFilesSync(paths.appPublic + '/photos', true),
-        REACT_APP_PROFILE_IMG: profiles[appProfileData].profileImage,
+        REACT_APP_PROFILE_IMG: getProfileImage(paths.appData + '/profiles/' + appProfileData + '/avatar.jpg'),
         REACT_APP_META_DESC: profiles[appProfileData].metaDescription,
         REACT_APP_META_KEYWORDS: profiles[appProfileData].metaKeywords,
         REACT_APP_HOME_DESC: profiles[appProfileData].homeDescription,

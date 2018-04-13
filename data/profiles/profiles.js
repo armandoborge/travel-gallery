@@ -1,7 +1,6 @@
 module.exports = {
     armando: {
         profileName: 'Armando Borge',
-        profileImage: 'armando.jpg',
         appName: 'Photo Gallery',
         appTheme: 'BigStone',
         metaDescription: 'Armando Borge Personal Website',
@@ -35,7 +34,6 @@ module.exports = {
     },
     melisa: {
         profileName: 'Melisa Redondo',
-        profileImage: 'melisa.jpg',
         appName: 'Travel Gallery',
         appTheme: 'ClamShell',
         metaDescription: 'Melisa Redondo - Artist, Traveller, Yogi & Healer',
