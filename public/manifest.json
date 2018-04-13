@@ -1,6 +1,7 @@
 {
   "short_name": "Travel Gallery",
   "name": "Armando Borge - Travel Gallery",
+  "description": "Armando Borge Photos Collection",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +11,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#17263C",
+  "background_color": "#17263C"
 }
