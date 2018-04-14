@@ -22,3 +22,7 @@ yarn-error.log*
 
 # WebStorm
 .idea/
+
+# copied files
+/public/favicon.*
+/public/manifest.json
