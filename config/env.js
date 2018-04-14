@@ -3,10 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
-
-//
-// import countries names
-const countriesNames = require('../data/countries');
+const utils = require('../config/utils');
 
 //
 // import profiles data
@@ -14,70 +11,6 @@ const profiles = require('../data/profiles/profiles');
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
-
-//
-// generate the data structure for places/albums/photos that the app uses
-// for the main navigation in the gallery section
-const allFilesSync = (dir, firstLevel = false, fileList = []) => {
-  fs.readdirSync(dir).forEach((file, index) => {
-    const filePath = path.join(dir, file);
-
-    if (file[0] !== '.') { // ignore hidden items
-      if (fs.statSync(filePath).isDirectory()) {
-        if (firstLevel) {
-          fileList.push({
-            'index': index - 1,
-            'link': file,
-            'name': countriesNames[file],
-            'albums': allFilesSync(filePath, false)
-          });
-        }
-        else {
-          fileList.push({
-            'index': index - 1,
-            'link': file,
-            'name': countriesNames[file],
-            'photos': allFilesSync(filePath, false)
-          });
-        }
-      }
-      else {
-        if (firstLevel) {
-          fileList.push(file);
-        }
-        else {
-          fileList.push(filePath.substr(
-              filePath.indexOf('/photos'), filePath.length
-            )
-          );
-        }
-      }
-    }
-  });
-  return fileList
-};
-
-//
-// get theme, this function define which global colors scheme the app will use
-// default: BigStone theme
-const getTheme = (theme) => {
-  return ['BigStone', 'ClamShell', 'OldTimes'].includes(theme) ? theme : 'BigStone';
-};
-
-//
-// get profile, only two profiles are supported for now
-const getDataProfile = (profile) => {
-  return ['armando', 'melisa'].includes(profile) ? profile : 'armando';
-};
-
-
-//
-// get profile image string in base64
-const getProfileImage = (imagePath) => {
-  //
-  // read binary data and return base64
-  return fs.readFileSync(imagePath, 'base64');
-};
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
@@ -133,7 +66,7 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 
 function getClientEnvironment(publicUrl) {
-  let appProfileData = getDataProfile(process.argv[2]);
+  let appProfileData = utils.getDataProfile();
 
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
@@ -156,9 +89,9 @@ function getClientEnvironment(publicUrl) {
         //
         REACT_APP_APP_NAME: profiles[appProfileData].appName,
         REACT_APP_PROFILE_NAME: profiles[appProfileData].profileName,
-        REACT_APP_THEME: getTheme(profiles[appProfileData].appTheme),
-        REACT_APP_FOLDER_STRUCTURE: allFilesSync(paths.appPublic + '/photos', true),
-        REACT_APP_PROFILE_IMG: getProfileImage(paths.appData + '/profiles/' + appProfileData + '/avatar.jpg'),
+        REACT_APP_THEME: utils.getTheme(profiles[appProfileData].appTheme),
+        REACT_APP_FOLDER_STRUCTURE: utils.allFilesSync(paths.appPublic + '/photos', true),
+        REACT_APP_PROFILE_IMG: utils.getProfileImage(paths.appData + '/profiles/' + appProfileData + '/avatar.jpg'),
         REACT_APP_META_DESC: profiles[appProfileData].metaDescription,
         REACT_APP_META_KEYWORDS: profiles[appProfileData].metaKeywords,
         REACT_APP_HOME_DESC: profiles[appProfileData].homeDescription,

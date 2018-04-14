@@ -20,6 +20,7 @@ const fs = require('fs-extra');
 const webpack = require('webpack');
 const config = require('../config/webpack.config.prod');
 const paths = require('../config/paths');
+const utils = require('../config/utils');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
@@ -79,7 +80,6 @@ measureFileSizesBeforeBuild(paths.appBuild)
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE
       );
-      console.log();
 
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrl;
@@ -143,6 +143,13 @@ function build(previousFileSizes) {
 }
 
 function copyPublicFolder() {
+  //
+  // copy profile files to public folder
+  let appProfileData = utils.getDataProfile();
+  fs.copySync(paths.appData + '/profiles/' + appProfileData + '/favicon.png', paths.appPublic + '/favicon.png');
+  fs.copySync(paths.appData + '/profiles/' + appProfileData + '/manifest.json', paths.appPublic + '/manifest.json');
+  //
+  // copy public folder to the build package
   fs.copySync(paths.appPublic, paths.appBuild, {
     dereference: true,
     filter: file => file !== paths.appHtml,
