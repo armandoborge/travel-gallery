@@ -17,6 +17,15 @@ class Gallery extends Component {
     };
 
     //
+    // init state
+    constructor(props) {
+        super(props);
+        //
+        // initialize gallery using router params
+        this.setGallery(props.match.params);
+    }
+
+    //
     // takes a link identifier as parameter
     getCountryIndex = (country) => {
         for (let i = 0; i < this.props.countries.length; i++) {
@@ -52,10 +61,6 @@ class Gallery extends Component {
     };
 
     handlePrevImage = () => {
-        //
-        // show spinner
-        this.setState({ loading: true });
-
         var prevPhotoIndex = parseInt(this.state.photoIndex, 10) - 1;
         var prevAlbumIndex = parseInt(this.state.albumIndex, 10) - 1;
         var prevCountryIndex = parseInt(this.state.countryIndex, 10) - 1;
@@ -96,10 +101,6 @@ class Gallery extends Component {
     };
 
     handleNextImage = () => {
-        //
-        // show spinner
-        this.setState({ loading: true });
-
         var nextPhotoIndex = parseInt(this.state.photoIndex, 10) + 1;
         var nextAlbumIndex = parseInt(this.state.albumIndex, 10) + 1;
         var nextCountryIndex = parseInt(this.state.countryIndex, 10) + 1;
@@ -158,7 +159,6 @@ class Gallery extends Component {
             photoIndex: config.photo ? config.photo : 0,
             imagesList: this.props.countries[countryIndex].albums[albumIndex].photos
         };
-
         //
         // wait for image load
         img.src = stateObj.imagesList[stateObj.photoIndex];
@@ -167,18 +167,22 @@ class Gallery extends Component {
         }
     };
 
-    //
-    // TODO: remove method due to React 16.3 changes
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.location.pathname !== this.props.location.pathname) {
-            this.setGallery(nextProps.match.params)
-        }
+    static getDerivedStateFromProps() {
+        return {
+            loading: true
+        };
     }
 
-    //
-    // TODO: remove method due to React 16.3 changes
-    componentWillMount() {
-        this.setGallery(this.props.match.params);
+    getSnapshotBeforeUpdate(prevProps) {
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            this.setGallery(this.props.match.params);
+        }
+        return null;
+    }
+
+    componentDidUpdate() {
+        //
+        // do nothing
     }
 
     componentDidMount () {
