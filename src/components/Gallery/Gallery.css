@@ -43,6 +43,10 @@
     font-size: 34px;
     text-align: center;
     color: var(--color-polar);
+    /*
+     * Remove blink when tapping on some elements
+     */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .navLeft{
@@ -58,11 +62,19 @@
     height: 100%;
     width: 50%;
     float: left;
+    /*
+     * Remove blink when tapping on some elements
+     */
+    -webkit-tap-highlight-color: transparent;
 }
 .nextPhoto {
     height: 100%;
     width: 50%;
     float: right;
+    /*
+     * Remove blink when tapping on some elements
+     */
+    -webkit-tap-highlight-color: transparent;
 }
 
 @keyframes Spinner {
