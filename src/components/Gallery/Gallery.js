@@ -167,14 +167,9 @@ class Gallery extends Component {
         }
     };
 
-    static getDerivedStateFromProps() {
-        return {
-            loading: true
-        };
-    }
-
     getSnapshotBeforeUpdate(prevProps) {
         if (prevProps.location.pathname !== this.props.location.pathname) {
+            this.setState({ loading: true });
             this.setGallery(this.props.match.params);
         }
         return null;
