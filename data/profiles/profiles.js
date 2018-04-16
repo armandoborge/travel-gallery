@@ -3,6 +3,7 @@ module.exports = {
         profileName: 'Armando Borge',
         appName: 'Photo Gallery',
         appTheme: 'BigStone',
+        metaThemeColor: '#17263C',
         metaDescription: 'Armando Borge Personal Website',
         metaKeywords: 'Armando Borge, Software, Travels, Programming, Javascript, HTML, CSS, Web',
         homeDescription:
@@ -36,6 +37,7 @@ module.exports = {
         profileName: 'Melisa Redondo',
         appName: 'Travel Gallery',
         appTheme: 'ClamShell',
+        metaThemeColor: '#2B2D57',
         metaDescription: 'Melisa Redondo - Artist, Traveller, Yogi & Healer',
         metaKeywords: 'Melisa Redondo, Art, Travels, Yoga, Healing, Reiki, Painting',
         homeDescription:

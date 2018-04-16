@@ -94,6 +94,7 @@ function getClientEnvironment(publicUrl) {
         REACT_APP_PROFILE_IMG: utils.getProfileImage(paths.appData + '/profiles/' + appProfileData + '/avatar.jpg'),
         REACT_APP_META_DESC: profiles[appProfileData].metaDescription,
         REACT_APP_META_KEYWORDS: profiles[appProfileData].metaKeywords,
+        REACT_APP_META_TCOLOR: profiles[appProfileData].metaThemeColor,
         REACT_APP_HOME_DESC: profiles[appProfileData].homeDescription,
         REACT_APP_HOME_LINKS: profiles[appProfileData].homeLinks
       }
