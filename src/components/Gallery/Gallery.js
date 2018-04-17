@@ -157,8 +157,6 @@ class Gallery extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps.location.pathname);
-        console.log(this.props.location.pathname);
         if (prevProps.location.pathname !== this.props.location.pathname) {
             this.setState({ loading: true });
         }
