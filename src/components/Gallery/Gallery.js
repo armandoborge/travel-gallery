@@ -73,11 +73,11 @@ class Gallery extends Component {
         const p = this.props.match.params;
         let albumIndex = this.getAlbumIndex(p.country, p.album);
         let countryIndex = this.getCountryIndex(p.country);
-        let photoIndex = p.photo || 0;
+        let photoIndex = parseInt(p.photo, 10) || 0;
 
-        var prevPhotoIndex = parseInt(photoIndex, 10) - 1;
-        var prevAlbumIndex = parseInt(albumIndex, 10) - 1;
-        var prevCountryIndex = parseInt(countryIndex, 10) - 1;
+        var prevPhotoIndex = photoIndex - 1;
+        var prevAlbumIndex = albumIndex - 1;
+        var prevCountryIndex = countryIndex - 1;
 
         //
         // navigate previous photo
@@ -115,11 +115,11 @@ class Gallery extends Component {
         const p = this.props.match.params;
         let countryIndex = this.getCountryIndex(p.country);
         let albumIndex = this.getAlbumIndex(p.country, p.album);
-        let photoIndex = p.photo || 0;
+        let photoIndex = parseInt(p.photo, 10) || 0;
 
-        var nextPhotoIndex = parseInt(photoIndex, 10) + 1;
-        var nextAlbumIndex = parseInt(albumIndex, 10) + 1;
-        var nextCountryIndex = parseInt(countryIndex, 10) + 1;
+        var nextPhotoIndex = photoIndex + 1;
+        var nextAlbumIndex = albumIndex + 1;
+        var nextCountryIndex = countryIndex + 1;
 
         //
         // only update the image index of the current album
@@ -176,6 +176,14 @@ class Gallery extends Component {
 
     render() {
         //
+        // router params
+        const p = this.props.match.params;
+        let countryIndex = this.getCountryIndex(p.country);
+        let countryName = this.getCountryName(p.country);
+        let albumIndex = this.getAlbumIndex(p.country, p.album);
+        let albumName = this.getAlbumName(p.country, p.album);
+        let photoIndex = parseInt(p.photo, 10) || 0;
+        //
         // show/hide spinner
         let spinner = this.state.loading ? (
             <div className={styles.Spinner}>
@@ -183,16 +191,6 @@ class Gallery extends Component {
                 <div></div>
             </div>
         ) : null;
-
-        //
-        // router params
-        const p = this.props.match.params;
-        let countryIndex = this.getCountryIndex(p.country);
-        let countryName = this.getCountryName(p.country);
-        let albumIndex = this.getAlbumIndex(p.country, p.album);
-        let albumName = this.getAlbumName(p.country, p.album);
-        let photoIndex = p.photo || 0;
-
 
         const headerStyles = this.props.showSidebar ? [styles.showSidebar] : [];
 
