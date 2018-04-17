@@ -20,6 +20,10 @@ class Gallery extends Component {
     // init state
     constructor(props) {
         super(props);
+        let config = this.props.match.params;
+        this.state.countryIndex = this.getCountryIndex(config.country);
+        this.state.albumIndex = this.getAlbumIndex(config.country, config.album);
+
         //
         // initialize gallery using router params
         this.setGallery(props.match.params);
