@@ -70,10 +70,12 @@ class Gallery extends Component {
     };
 
     handlePrevImage = () => {
-        let albumIndex = this.getAlbumIndex(this.props.match.params.country, this.props.match.params.album);
-        let countryIndex = this.getCountryIndex(this.props.match.params.country);
+        const p = this.props.match.params;
+        let albumIndex = this.getAlbumIndex(p.country, p.album);
+        let countryIndex = this.getCountryIndex(p.country);
+        let photoIndex = p.photo || 0;
 
-        var prevPhotoIndex = parseInt(this.props.match.params.photo || 0, 10) - 1;
+        var prevPhotoIndex = parseInt(photoIndex, 10) - 1;
         var prevAlbumIndex = parseInt(albumIndex, 10) - 1;
         var prevCountryIndex = parseInt(countryIndex, 10) - 1;
 
@@ -110,10 +112,12 @@ class Gallery extends Component {
     };
 
     handleNextImage = () => {
-        let albumIndex = this.getAlbumIndex(this.props.match.params.country, this.props.match.params.album);
-        let countryIndex = this.getCountryIndex(this.props.match.params.country);
+        const p = this.props.match.params;
+        let countryIndex = this.getCountryIndex(p.country);
+        let albumIndex = this.getAlbumIndex(p.country, p.album);
+        let photoIndex = p.photo || 0;
 
-        var nextPhotoIndex = parseInt(this.props.match.params.photo || 0, 10) + 1;
+        var nextPhotoIndex = parseInt(photoIndex, 10) + 1;
         var nextAlbumIndex = parseInt(albumIndex, 10) + 1;
         var nextCountryIndex = parseInt(countryIndex, 10) + 1;
 
