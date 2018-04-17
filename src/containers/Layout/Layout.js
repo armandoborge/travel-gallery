@@ -22,7 +22,6 @@ import styles from './Layout.css'
 
 class Layout extends Component {
     state = {
-        countriesList: process.env.REACT_APP_FOLDER_STRUCTURE,
         showSidebar: window.innerWidth >= 670
     };
 
@@ -46,12 +45,12 @@ class Layout extends Component {
                     toggled={this.sidebarToggleHandler}
                     showSidebar={this.state.showSidebar}>
                     <Avatar closed={this.sidebarCloseHandler} />
-                    <Navigation countries={this.state.countriesList} closed={this.sidebarCloseHandler} />
+                    <Navigation countries={process.env.REACT_APP_FOLDER_STRUCTURE} closed={this.sidebarCloseHandler} />
                 </Sidebar>
                 <main className={mainClasses.join(' ')}>
                     <Switch>
                         <Route path="/" exact render={() => <Home showSidebar={this.state.showSidebar} />} />
-                        <Route path="/gallery/:country/:album/:photo?" render={() => <Gallery countries={this.state.countriesList} showSidebar={this.state.showSidebar} />} />
+                        <Route path="/gallery/:country/:album/:photo?" render={() => <Gallery showSidebar={this.state.showSidebar} />} />
                         <Redirect to="/" />
                     </Switch>
                 </main>

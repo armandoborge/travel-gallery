@@ -32,6 +32,15 @@
     color: var(--color-brandy);
 }
 
+.MainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 .navLeft,
 .navRight {
     cursor: pointer;
@@ -61,7 +70,8 @@
 .prevPhoto {
     height: 100%;
     width: 50%;
-    float: left;
+    left: 0;
+    position: absolute;
     /*
      * Remove blink when tapping on some elements
      */
@@ -70,7 +80,8 @@
 .nextPhoto {
     height: 100%;
     width: 50%;
-    float: right;
+    right: 0;
+    position: absolute;
     /*
      * Remove blink when tapping on some elements
      */

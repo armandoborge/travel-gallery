@@ -7,33 +7,33 @@ import { withRouter } from 'react-router-dom';
 // CSS import
 import styles from './Gallery.css'
 
-class Gallery extends Component {
-    state = {
-        countryIndex: 0,
-        albumIndex: 0,
-        photoIndex: 0,
-        imagesList: [],
-        loading: true
-    };
+//
+// countries constant
+const countries = process.env.REACT_APP_FOLDER_STRUCTURE;
 
+class Gallery extends Component {
     //
     // init state
     constructor(props) {
         super(props);
-        let config = this.props.match.params;
-        this.state.countryIndex = this.getCountryIndex(config.country);
-        this.state.albumIndex = this.getAlbumIndex(config.country, config.album);
-
         //
-        // initialize gallery using router params
-        this.setGallery(props.match.params);
+        // get config from router params
+        let config = this.props.match.params;
+        //
+        // fill state
+        this.state = {
+            countryIndex: this.getCountryIndex(config.country),
+            albumIndex: this.getAlbumIndex(config.country, config.album),
+            photoIndex: config.photo ? config.photo : 0,
+            loading: true
+        };
     }
 
     //
     // takes a link identifier as parameter
     getCountryIndex = (country) => {
-        for (let i = 0; i < this.props.countries.length; i++) {
-            if (this.props.countries[i].link === country) {
+        for (let i = 0; i < countries.length; i++) {
+            if (countries[i].link === country) {
                 return i;
             }
         }
@@ -43,15 +43,15 @@ class Gallery extends Component {
     //
     // takes a index value as parameter
     getCountryLink = (countryIndex) => {
-        return this.props.countries[countryIndex].link;
+        return countries[countryIndex].link;
     };
 
     //
     // takes links identifier as parameters
     getAlbumIndex = (country, album) => {
         let indexCountry = this.getCountryIndex(country);
-        for (let i = 0; i < this.props.countries[indexCountry].albums.length; i++) {
-            if (this.props.countries[indexCountry].albums[i].link === album) {
+        for (let i = 0; i < countries[indexCountry].albums.length; i++) {
+            if (countries[indexCountry].albums[i].link === album) {
                 return i;
             }
         }
@@ -61,7 +61,13 @@ class Gallery extends Component {
     //
     // takes index values as parameters
     getAlbumLink = (countryIndex, albumIndex) => {
-        return this.props.countries[countryIndex].albums[albumIndex].link;
+        return countries[countryIndex].albums[albumIndex].link;
+    };
+
+    //
+    // hide spinner when image is loaded
+    handleImageLoaded = () => {
+        this.setState({ loading: false })
     };
 
     handlePrevImage = () => {
@@ -74,16 +80,16 @@ class Gallery extends Component {
                 if (prevCountryIndex < 0) {
                     //
                     // navigate to the last country
-                    let contextPath = this.getCountryLink(this.props.countries.length - 1) + '/' + this.getAlbumLink(this.props.countries.length - 1, this.props.countries[this.props.countries.length - 1].albums[this.props.countries[this.props.countries.length - 1].albums.length - 1].index) + '/';
-                    let imageIndex = this.props.countries[this.props.countries.length - 1].albums[this.props.countries[this.props.countries.length - 1].albums.length - 1].photos.length - 1;
+                    let contextPath = this.getCountryLink(countries.length - 1) + '/' + this.getAlbumLink(countries.length - 1, countries[countries.length - 1].albums[countries[countries.length - 1].albums.length - 1].index) + '/';
+                    let imageIndex = countries[countries.length - 1].albums[countries[countries.length - 1].albums.length - 1].photos.length - 1;
 
                     this.props.history.push('/gallery/' + contextPath + imageIndex);
                 }
                 else {
                     //
                     // navigate to previous country
-                    let contextPath = this.getCountryLink(prevCountryIndex) + '/' + this.getAlbumLink(prevCountryIndex, this.props.countries[prevCountryIndex].albums[this.props.countries[prevCountryIndex].albums.length - 1].index) + '/';
-                    let imageIndex = this.props.countries[prevCountryIndex].albums[this.props.countries[prevCountryIndex].albums.length - 1].photos.length - 1;
+                    let contextPath = this.getCountryLink(prevCountryIndex) + '/' + this.getAlbumLink(prevCountryIndex, countries[prevCountryIndex].albums[countries[prevCountryIndex].albums.length - 1].index) + '/';
+                    let imageIndex = countries[prevCountryIndex].albums[countries[prevCountryIndex].albums.length - 1].photos.length - 1;
 
                     this.props.history.push('/gallery/' + contextPath + imageIndex);
                 }
@@ -92,7 +98,7 @@ class Gallery extends Component {
                 //
                 // navigate to previous album, last photo
                 let contextPath = this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, prevAlbumIndex)  + '/';
-                let imageIndex = this.props.countries[this.state.countryIndex].albums[prevAlbumIndex].photos.length - 1;
+                let imageIndex = countries[this.state.countryIndex].albums[prevAlbumIndex].photos.length - 1;
 
                 this.props.history.push('/gallery/' + contextPath + imageIndex);
             }
@@ -109,9 +115,9 @@ class Gallery extends Component {
         var nextAlbumIndex = parseInt(this.state.albumIndex, 10) + 1;
         var nextCountryIndex = parseInt(this.state.countryIndex, 10) + 1;
 
-        if (nextPhotoIndex > this.state.imagesList.length - 1) {
-            if (nextAlbumIndex > this.props.countries[this.state.countryIndex].albums.length - 1) {
-                if (nextCountryIndex > this.props.countries.length - 1) {
+        if (nextPhotoIndex > countries[this.state.countryIndex].albums[this.state.albumIndex].photos.length - 1) {
+            if (nextAlbumIndex > countries[this.state.countryIndex].albums.length - 1) {
+                if (nextCountryIndex > countries.length - 1) {
                     //
                     // navigate to first country
                     this.props.history.push(
@@ -152,36 +158,21 @@ class Gallery extends Component {
     };
 
     setGallery = (config) => {
-        let img = new Image();
         let countryIndex = this.getCountryIndex(config.country);
         let albumIndex = this.getAlbumIndex(config.country, config.album);
 
-        let stateObj = {
-            loading: false,
+        this.setState({
+            loading: true,
             countryIndex: countryIndex,
             albumIndex: albumIndex,
-            photoIndex: config.photo ? config.photo : 0,
-            imagesList: this.props.countries[countryIndex].albums[albumIndex].photos
-        };
-        //
-        // wait for image load
-        img.src = stateObj.imagesList[stateObj.photoIndex];
-        img.onload = () => {
-            this.setState(stateObj);
-        }
+            photoIndex: config.photo ? config.photo : 0
+        });
     };
 
-    getSnapshotBeforeUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         if (prevProps.location.pathname !== this.props.location.pathname) {
-            this.setState({ loading: true });
             this.setGallery(this.props.match.params);
         }
-        return null;
-    }
-
-    componentDidUpdate() {
-        //
-        // do nothing
     }
 
     componentDidMount () {
@@ -193,28 +184,31 @@ class Gallery extends Component {
     }
 
     render() {
-        let galleryStyles = {
-            background: 'url(' + this.state.imagesList[this.state.photoIndex] + ') center center / cover no-repeat'
-        };
+        let spinner = !this.state.loading ? null : (
+            <div className={styles.Spinner}>
+                <div></div>
+                <div></div>
+            </div>
+        );
 
-        let spinner = null;
-        if (this.state.loading) {
-            spinner = (
-                <div className={styles.Spinner}>
-                    <div></div>
-                    <div></div>
-                </div>
-            )
-        }
-
+        let countryName = countries[this.state.countryIndex].name;
+        let albumName = countries[this.state.countryIndex].albums[this.state.albumIndex].name;
         const headerStyles = this.props.showSidebar ? [styles.showSidebar] : [];
 
         return (
-            <div className={styles.Gallery} style={galleryStyles}>
+            <div className={styles.Gallery}>
                 {spinner}
+                <img
+                    className={styles.MainImage}
+                    onLoad={this.handleImageLoaded}
+                    alt={countryName + ' ' + albumName}
+                    src={countries[this.state.countryIndex].albums[this.state.albumIndex].photos[this.state.photoIndex]}
+                />
+                <div className={styles.prevPhoto} onClick={this.handlePrevImage}></div>
+                <div className={styles.nextPhoto} onClick={this.handleNextImage}></div>
                 <header className={headerStyles.join(' ')}>
-                    <h1>{this.props.countries[this.state.countryIndex].name}</h1>
-                    <h3>{this.props.countries[this.state.countryIndex].albums[this.state.albumIndex].name}</h3>
+                    <h1>{countryName}</h1>
+                    <h3>{albumName}</h3>
                     <div className={styles.navLeft} onClick={this.handlePrevImage}>
                         <i className="fas fa-angle-left" />
                     </div>
@@ -222,8 +216,6 @@ class Gallery extends Component {
                         <i className="fas fa-angle-right" />
                     </div>
                 </header>
-                <div className={styles.prevPhoto} onClick={this.handlePrevImage}></div>
-                <div className={styles.nextPhoto} onClick={this.handleNextImage}></div>
             </div>
         )
     }
