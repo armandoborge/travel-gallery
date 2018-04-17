@@ -12,22 +12,9 @@ import styles from './Gallery.css'
 const countries = process.env.REACT_APP_FOLDER_STRUCTURE;
 
 class Gallery extends Component {
-    //
-    // init state
-    constructor(props) {
-        super(props);
-        //
-        // get config from router params
-        let config = this.props.match.params;
-        //
-        // fill state
-        this.state = {
-            countryIndex: this.getCountryIndex(config.country),
-            albumIndex: this.getAlbumIndex(config.country, config.album),
-            photoIndex: config.photo ? config.photo : 0,
-            loading: true
-        };
-    }
+    state = {
+        loading: true
+    };
 
     //
     // takes a link identifier as parameter
@@ -44,6 +31,12 @@ class Gallery extends Component {
     // takes a index value as parameter
     getCountryLink = (countryIndex) => {
         return countries[countryIndex].link;
+    };
+
+    //
+    // get the name of a country
+    getCountryName = (link) => {
+        return countries[this.getCountryIndex(link)].name;
     };
 
     //
@@ -65,88 +58,94 @@ class Gallery extends Component {
     };
 
     //
+    // get the name of an album
+    getAlbumName = (country, album) => {
+        return countries[this.getCountryIndex(country)].albums[this.getAlbumIndex(country, album)].name;
+    };
+
+    //
     // hide spinner when image is loaded
     handleImageLoaded = () => {
         this.setState({ loading: false })
     };
 
     handlePrevImage = () => {
-        var prevPhotoIndex = parseInt(this.state.photoIndex, 10) - 1;
-        var prevAlbumIndex = parseInt(this.state.albumIndex, 10) - 1;
-        var prevCountryIndex = parseInt(this.state.countryIndex, 10) - 1;
+        let albumIndex = this.getAlbumIndex(this.props.match.params.country, this.props.match.params.album);
+        let countryIndex = this.getCountryIndex(this.props.match.params.country);
+
+        var prevPhotoIndex = parseInt(this.props.match.params.photo || 0, 10) - 1;
+        var prevAlbumIndex = parseInt(albumIndex, 10) - 1;
+        var prevCountryIndex = parseInt(countryIndex, 10) - 1;
+
+        //
+        // navigate previous photo
+        let contextPath = this.getCountryLink(countryIndex) + '/' + this.getAlbumLink(countryIndex, albumIndex)  + '/';
+        let imageIndex = prevPhotoIndex;
 
         if (prevPhotoIndex < 0) {
             if (prevAlbumIndex < 0) {
                 if (prevCountryIndex < 0) {
                     //
                     // navigate to the last country
-                    let contextPath = this.getCountryLink(countries.length - 1) + '/' + this.getAlbumLink(countries.length - 1, countries[countries.length - 1].albums[countries[countries.length - 1].albums.length - 1].index) + '/';
-                    let imageIndex = countries[countries.length - 1].albums[countries[countries.length - 1].albums.length - 1].photos.length - 1;
+                    contextPath = this.getCountryLink(countries.length - 1) + '/' + this.getAlbumLink(countries.length - 1, countries[countries.length - 1].albums[countries[countries.length - 1].albums.length - 1].index) + '/';
+                    imageIndex = countries[countries.length - 1].albums[countries[countries.length - 1].albums.length - 1].photos.length - 1;
 
-                    this.props.history.push('/gallery/' + contextPath + imageIndex);
                 }
                 else {
                     //
                     // navigate to previous country
-                    let contextPath = this.getCountryLink(prevCountryIndex) + '/' + this.getAlbumLink(prevCountryIndex, countries[prevCountryIndex].albums[countries[prevCountryIndex].albums.length - 1].index) + '/';
-                    let imageIndex = countries[prevCountryIndex].albums[countries[prevCountryIndex].albums.length - 1].photos.length - 1;
-
-                    this.props.history.push('/gallery/' + contextPath + imageIndex);
+                    contextPath = this.getCountryLink(prevCountryIndex) + '/' + this.getAlbumLink(prevCountryIndex, countries[prevCountryIndex].albums[countries[prevCountryIndex].albums.length - 1].index) + '/';
+                    imageIndex = countries[prevCountryIndex].albums[countries[prevCountryIndex].albums.length - 1].photos.length - 1;
                 }
             }
             else {
                 //
                 // navigate to previous album, last photo
-                let contextPath = this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, prevAlbumIndex)  + '/';
-                let imageIndex = countries[this.state.countryIndex].albums[prevAlbumIndex].photos.length - 1;
-
-                this.props.history.push('/gallery/' + contextPath + imageIndex);
+                contextPath = this.getCountryLink(countryIndex) + '/' + this.getAlbumLink(countryIndex, prevAlbumIndex)  + '/';
+                imageIndex = countries[countryIndex].albums[prevAlbumIndex].photos.length - 1;
             }
         }
-        else {
-            //
-            // next photo
-            this.props.history.push('/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, this.state.albumIndex)  + '/' + prevPhotoIndex);
-        }
+
+        this.props.history.push('/gallery/' + contextPath + imageIndex);
     };
 
     handleNextImage = () => {
-        var nextPhotoIndex = parseInt(this.state.photoIndex, 10) + 1;
-        var nextAlbumIndex = parseInt(this.state.albumIndex, 10) + 1;
-        var nextCountryIndex = parseInt(this.state.countryIndex, 10) + 1;
+        let albumIndex = this.getAlbumIndex(this.props.match.params.country, this.props.match.params.album);
+        let countryIndex = this.getCountryIndex(this.props.match.params.country);
 
-        if (nextPhotoIndex > countries[this.state.countryIndex].albums[this.state.albumIndex].photos.length - 1) {
-            if (nextAlbumIndex > countries[this.state.countryIndex].albums.length - 1) {
+        var nextPhotoIndex = parseInt(this.props.match.params.photo || 0, 10) + 1;
+        var nextAlbumIndex = parseInt(albumIndex, 10) + 1;
+        var nextCountryIndex = parseInt(countryIndex, 10) + 1;
+
+        //
+        // only update the image index of the current album
+        let contextPath = this.getCountryLink(countryIndex) + '/' + this.getAlbumLink(countryIndex, albumIndex)  + '/';
+        let imageIndex = nextPhotoIndex;
+
+        if (nextPhotoIndex > countries[countryIndex].albums[albumIndex].photos.length - 1) {
+            if (nextAlbumIndex > countries[countryIndex].albums.length - 1) {
                 if (nextCountryIndex > countries.length - 1) {
                     //
                     // navigate to first country
-                    this.props.history.push(
-                        '/gallery/' + this.getCountryLink(0) + '/' + this.getAlbumLink(0, 0) + '/' + 0
-                    );
+                    contextPath = this.getCountryLink(0) + '/' + this.getAlbumLink(0, 0) + '/';
+                    imageIndex = 0;
                 }
                 else {
                     //
                     // navigate to next country, first album
-                    this.props.history.push(
-                        '/gallery/' + this.getCountryLink(nextCountryIndex) + '/' + this.getAlbumLink(nextCountryIndex, 0) + '/' + 0
-                    );
+                    contextPath = this.getCountryLink(nextCountryIndex) + '/' + this.getAlbumLink(nextCountryIndex, 0) + '/';
+                    imageIndex = 0;
                 }
             }
             else {
                 //
                 // navigate to next album
-                this.props.history.push(
-                    '/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, nextAlbumIndex) + '/' + 0
-                );
+                contextPath = this.getCountryLink(countryIndex) + '/' + this.getAlbumLink(countryIndex, nextAlbumIndex) + '/';
+                imageIndex = 0;
             }
         }
-        else {
-            //
-            // only update the image index of the current album
-            this.props.history.push(
-                '/gallery/' + this.getCountryLink(this.state.countryIndex) + '/' + this.getAlbumLink(this.state.countryIndex, this.state.albumIndex)  + '/' + nextPhotoIndex
-            );
-        }
+
+        this.props.history.push('/gallery/' + contextPath + imageIndex);
     };
 
     handleKeyPress = (event) => {
@@ -157,21 +156,11 @@ class Gallery extends Component {
         }
     };
 
-    setGallery = (config) => {
-        let countryIndex = this.getCountryIndex(config.country);
-        let albumIndex = this.getAlbumIndex(config.country, config.album);
-
-        this.setState({
-            loading: true,
-            countryIndex: countryIndex,
-            albumIndex: albumIndex,
-            photoIndex: config.photo ? config.photo : 0
-        });
-    };
-
     componentDidUpdate(prevProps) {
+        console.log(prevProps.location.pathname);
+        console.log(this.props.location.pathname);
         if (prevProps.location.pathname !== this.props.location.pathname) {
-            this.setGallery(this.props.match.params);
+            this.setState({ loading: true });
         }
     }
 
@@ -184,28 +173,38 @@ class Gallery extends Component {
     }
 
     render() {
-        let spinner = !this.state.loading ? null : (
+        //
+        // show/hide spinner
+        let spinner = this.state.loading ? (
             <div className={styles.Spinner}>
                 <div></div>
                 <div></div>
             </div>
-        );
+        ) : null;
 
-        let countryName = countries[this.state.countryIndex].name;
-        let albumName = countries[this.state.countryIndex].albums[this.state.albumIndex].name;
+        //
+        // router params
+        const p = this.props.match.params;
+        let countryIndex = this.getCountryIndex(p.country);
+        let countryName = this.getCountryName(p.country);
+        let albumIndex = this.getAlbumIndex(p.country, p.album);
+        let albumName = this.getAlbumName(p.country, p.album);
+        let photoIndex = p.photo || 0;
+
+
         const headerStyles = this.props.showSidebar ? [styles.showSidebar] : [];
 
         return (
             <div className={styles.Gallery}>
-                {spinner}
                 <img
                     className={styles.MainImage}
                     onLoad={this.handleImageLoaded}
-                    alt={countryName + ' ' + albumName}
-                    src={countries[this.state.countryIndex].albums[this.state.albumIndex].photos[this.state.photoIndex]}
+                    alt={albumName + ', ' + countryName}
+                    src={countries[countryIndex].albums[albumIndex].photos[photoIndex]}
                 />
                 <div className={styles.prevPhoto} onClick={this.handlePrevImage}></div>
                 <div className={styles.nextPhoto} onClick={this.handleNextImage}></div>
+                {spinner}
                 <header className={headerStyles.join(' ')}>
                     <h1>{countryName}</h1>
                     <h3>{albumName}</h3>
