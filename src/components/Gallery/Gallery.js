@@ -2,6 +2,7 @@
 // import from node_modules
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 //
 // CSS import
@@ -209,10 +210,10 @@ class Gallery extends Component {
                     <h1>{countryName}</h1>
                     <h3>{albumName}</h3>
                     <div className={styles.navLeft} onClick={this.handlePrevImage}>
-                        <i className="fas fa-angle-left" />
+                        <FontAwesomeIcon icon='angle-left' />
                     </div>
                     <div className={styles.navRight} onClick={this.handleNextImage}>
-                        <i className="fas fa-angle-right" />
+                        <FontAwesomeIcon icon='angle-right' />
                     </div>
                 </header>
             </div>

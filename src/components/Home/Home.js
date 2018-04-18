@@ -2,6 +2,7 @@
 // from node_modules
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 //
 // CSS import
@@ -23,7 +24,7 @@ const home = (props) => {
         if (linkObj.isExternal) {
             link = (
                 <a href={linkObj.url} target="_blank" title={linkObj.title} rel="noopener noreferrer">
-                    <i className={linkObj.icon} />
+                    <i><FontAwesomeIcon icon={linkObj.icon} /></i>
                     <span>{linkObj.text}</span>
                 </a>
             );
@@ -31,7 +32,7 @@ const home = (props) => {
         else {
             link = (
                 <Link to={linkObj.url} title={linkObj.title}>
-                    <i className={linkObj.icon} />
+                    <i><FontAwesomeIcon icon={linkObj.icon} /></i>
                     <span>{linkObj.text}</span>
                 </Link>
             );

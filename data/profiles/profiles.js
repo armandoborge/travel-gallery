@@ -12,21 +12,21 @@ module.exports = {
         homeLinks: [
             {
                 url: 'http://armandoborge.com',
-                icon: 'fas fa-code',
+                icon: 'code',
                 text: 'About Me',
                 title: 'Armando Borge Personal Website',
                 isExternal: true
             },
             {
                 url: '/gallery/argentina/los-glaciares/',
-                icon: 'fas fa-camera',
+                icon: 'camera',
                 text: 'Pictures',
                 title: 'Photos Collection',
                 isExternal: false
             },
             {
                 url: 'https://github.com/armandoborge/travel-gallery',
-                icon: 'fas fa-code-branch',
+                icon: 'code-branch',
                 text: 'GitHub',
                 title: 'GitHub Repository',
                 isExternal: true
@@ -46,21 +46,21 @@ module.exports = {
         homeLinks: [
             {
                 url: 'http://melisaredondo.com',
-                icon: 'fas fa-heart',
+                icon: 'heart',
                 text: 'My Website',
                 title: 'Melisa Redondo Personal Website',
                 isExternal: true
             },
             {
                 url: '/gallery/argentina/el-calafate/',
-                icon: 'fas fa-camera',
+                icon: 'camera',
                 text: 'Pictures',
                 title: 'Photos Collection',
                 isExternal: false
             },
             {
                 url: 'https://github.com/armandoborge/travel-gallery',
-                icon: 'fas fa-code',
+                icon: 'code',
                 text: 'GitHub',
                 title: 'GitHub',
                 isExternal: true
