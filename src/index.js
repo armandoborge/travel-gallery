@@ -12,6 +12,10 @@ import Layout from './containers/Layout/Layout'
 // service worker
 import registerServiceWorker from './registerServiceWorker';
 
+//
+// CSS fonts
+require('typeface-raleway');
+
 const app = (
     <BrowserRouter>
         <Layout />

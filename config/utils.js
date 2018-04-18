@@ -57,7 +57,7 @@ module.exports = {
     // get theme, this function define which global colors scheme the app will use
     // default: BigStone theme
     getTheme: theme => {
-        return ['BigStone', 'ClamShell', 'OldTimes'].includes(theme) ? theme : 'BigStone';
+        return ['BigStone', 'ClamShell'].includes(theme) ? theme : 'BigStone';
     },
     //
     // get profile image string in base64

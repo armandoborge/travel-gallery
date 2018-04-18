@@ -1,6 +1,6 @@
 //
 // from node_modules
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 
@@ -40,7 +40,7 @@ class Layout extends Component {
     render() {
         const mainClasses = this.state.showSidebar ? [styles.Main, styles.showSidebar] : [styles.Main];
         return (
-            <Fragment>
+            <div className={[styles['theme_' + process.env.REACT_APP_THEME] + ' ' + styles.LayoutContainer]}>
                 <Sidebar
                     toggled={this.sidebarToggleHandler}
                     showSidebar={this.state.showSidebar}>
@@ -54,7 +54,7 @@ class Layout extends Component {
                         <Redirect to="/" />
                     </Switch>
                 </main>
-            </Fragment>
+            </div>
         )
     }
 }
