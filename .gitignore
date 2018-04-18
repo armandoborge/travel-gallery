@@ -24,5 +24,6 @@ yarn-error.log*
 .idea/
 
 # copied files
+/public/app/
 /public/favicon.*
 /public/manifest.json

@@ -62,6 +62,7 @@ if (process.env.HOST) {
 //
 // copy profile files to public folder
 let appProfileData = utils.getDataProfile();
+fs.copySync(paths.appData + '/profiles/' + appProfileData + '/app', paths.appPublic + '/app');
 fs.copySync(paths.appData + '/profiles/' + appProfileData + '/favicon.png', paths.appPublic + '/favicon.png');
 fs.copySync(paths.appData + '/profiles/' + appProfileData + '/manifest.json', paths.appPublic + '/manifest.json');
 

@@ -4,8 +4,43 @@
   "description": "Melisa Redondo Photos Collection",
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "./app/app@512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/app@256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/app@192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/app@180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/app@167.png",
+      "sizes": "167x167",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/app@152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/app@144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/app@128.png",
+      "sizes": "128x128",
       "type": "image/png"
     }
   ],
