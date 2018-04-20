@@ -14,7 +14,8 @@ const countries = process.env.REACT_APP_FOLDER_STRUCTURE;
 
 class Gallery extends Component {
     state = {
-        loading: true
+        loading: true,
+        error: false
     };
 
     //
@@ -67,7 +68,19 @@ class Gallery extends Component {
     //
     // hide spinner when image is loaded
     handleImageLoaded = () => {
-        this.setState({ loading: false })
+        this.setState({
+            loading: false,
+            error: false
+        })
+    };
+
+    //
+    // hidde spinner and show error message
+    handleImageError = () => {
+        this.setState({
+            loading: false,
+            error: true
+        })
     };
 
     handlePrevImage = () => {
@@ -163,7 +176,10 @@ class Gallery extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.location.pathname !== this.props.location.pathname) {
-            this.setState({ loading: true });
+            this.setState({
+                loading: true,
+                error: false
+            });
         }
     }
 
@@ -193,19 +209,37 @@ class Gallery extends Component {
             </div>
         ) : null;
 
+        //
+        // show image load error
+        const errorStyles = this.props.showSidebar ? [styles.Error, styles.showSidebar] : [styles.Error];
+        let error = this.state.error ? (
+            <div className={errorStyles.join(' ')}>
+                <i>
+                    <FontAwesomeIcon icon='meh' />
+                </i>
+                <p>Something went wrong! Please check your internet connection...</p>
+            </div>
+        ) : null;
+
+        let image = !this.state.error ? (
+            <img
+                className={styles.MainImage}
+                onLoad={this.handleImageLoaded}
+                onError={this.handleImageError}
+                alt={albumName + ', ' + countryName}
+                src={countries[countryIndex].albums[albumIndex].photos[photoIndex]}
+            />
+        ) : null;
+
         const headerStyles = this.props.showSidebar ? [styles.showSidebar] : [];
 
         return (
             <div className={styles.Gallery}>
-                <img
-                    className={styles.MainImage}
-                    onLoad={this.handleImageLoaded}
-                    alt={albumName + ', ' + countryName}
-                    src={countries[countryIndex].albums[albumIndex].photos[photoIndex]}
-                />
+                {image}
                 <div className={styles.prevPhoto} onClick={this.handlePrevImage}></div>
                 <div className={styles.nextPhoto} onClick={this.handleNextImage}></div>
                 {spinner}
+                {error}
                 <header className={headerStyles.join(' ')}>
                     <h1>{countryName}</h1>
                     <h3>{albumName}</h3>

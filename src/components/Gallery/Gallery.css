@@ -108,6 +108,22 @@
     animation: Spinner .8s linear infinite;
 }
 
+.Error {
+    position: absolute;
+    left: 0;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    padding: 5% 10%;
+    color: var(--color-polar);
+    font-size: 22px;
+}
+.Error i {
+    color: var(--color-brandy);
+    font-size: 50px;
+}
+
+
 /* iPhone 6, 7, & 8 in portrait */
 @media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
     .showSidebar {
@@ -119,5 +135,21 @@
 @media only screen and (min-device-width : 375px) and (max-device-width : 812px) and (-webkit-device-pixel-ratio : 3) and (orientation : portrait) {
     .showSidebar {
         display: none;
+    }
+}
+
+/* iPhone 6, 7, & 8 in landscape */
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : landscape) {
+    .Error {
+        top: 0;
+        font-size: 20px;
+    }
+}
+
+/* iPhone X in landscape */
+@media only screen and (min-device-width : 375px) and (max-device-width : 812px) and (-webkit-device-pixel-ratio : 3) and (orientation : landscape) {
+    .Error {
+        top: 0;
+        font-size: 20px;
     }
 }
