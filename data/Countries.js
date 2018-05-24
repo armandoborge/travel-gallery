@@ -27,6 +27,7 @@ module.exports = {
   "huerquehue": "Parque Nacional Huerquehue",
   "pn-chiloe": "Parque Nacional Chiloé",
   "antofagasta": "Antofagasta",
+  "valle-del-elqui": "Valle Del Elqui",
 
   "mexico": "México",
   "san-jose-del-pacifico": "San Jose del Pacifico",
