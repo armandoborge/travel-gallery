@@ -29,6 +29,7 @@ module.exports = {
   "antofagasta": "Antofagasta",
   "valle-del-elqui": "Valle Del Elqui",
   "el-morado": "Monumento Natural El Morado",
+  "la-serena": "La Serena",
 
   "mexico": "México",
   "san-jose-del-pacifico": "San Jose del Pacifico",
