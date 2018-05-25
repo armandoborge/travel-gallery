@@ -3,6 +3,7 @@
     height: calc(100% - var(--avatar-height));
     overflow: scroll;
     padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .Navigation ul{
