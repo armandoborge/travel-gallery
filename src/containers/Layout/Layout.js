@@ -39,11 +39,15 @@ class Layout extends Component {
     render() {
         const mainClasses = this.state.showSidebar ? [styles.Main, styles.showSidebar] : [styles.Main];
         const offlineBannerClasses = this.state.showSidebar ? [styles.connectionMessage, styles.showSidebar] : [styles.connectionMessage];
-        const showOfflineMessage = !navigator.onLine;
+        const offlineMessage = !navigator.onLine ? (
+            <div className={offlineBannerClasses.join(' ')}>
+                <p>Connection lost... offline mode activated!</p>
+            </div>
+        ) : null;
 
         return (
             <div className={[styles['theme_' + process.env.REACT_APP_THEME] + ' ' + styles.LayoutContainer]}>
-
+                {offlineMessage}
                 <Sidebar
                     toggled={this.sidebarToggleHandler}
                     showSidebar={this.state.showSidebar}>
@@ -56,9 +60,6 @@ class Layout extends Component {
                         <Route path="/gallery/:country/:album/:photo?" render={() => <Gallery showSidebar={this.state.showSidebar} />} />
                         <Redirect to="/" />
                     </Switch>
-                    {showOfflineMessage ? (<div className={offlineBannerClasses.join(' ')}>
-                        <p>Connection lost... offline mode activated!</p>
-                    </div>) : null}
                 </main>
             </div>
         )

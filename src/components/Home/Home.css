@@ -1,17 +1,17 @@
 .Home {
     width: 100%;
     height: 100%;
+    overflow: scroll;
 }
 
 .HomeContent {
     width: 100%;
     min-height: 100%;
-    overflow: scroll;
     text-align: center;
     color: var(--color-brandy);
     background: var(--color-translucid-layer);
 
-    padding: 0 5%;
+    padding: 90px 5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +21,7 @@
 .HomeContent h1{
     font-weight: 300;
     font-size: 45px;
+    margin-top: 0;
     margin-bottom: 40px;
     color: var(--color-polar);
 }

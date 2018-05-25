@@ -72,7 +72,7 @@ html, body {
 }
 
 .connectionMessage {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
@@ -82,12 +82,15 @@ html, body {
     color: var(--color-brandy);
     background: var(--color-translucid-layer);
 
-    z-index: 4;
+    z-index: 2;
     transition: padding 0.5s ease-in-out;
 }
 
 .connectionMessage p {
     padding: 0 46px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .showSidebar {
