@@ -77,13 +77,17 @@ html, body {
     left: 0;
     width: 100%;
     height: 83px;
-    padding: 15px 50px;
+    padding: 15px 0;
     text-align: center;
     color: var(--color-brandy);
     background: var(--color-translucid-layer);
 
     z-index: 4;
     transition: padding 0.5s ease-in-out;
+}
+
+.connectionMessage p {
+    padding: 0 46px;
 }
 
 .showSidebar {
