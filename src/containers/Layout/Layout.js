@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
-
 //
 // import navigation sections
 import Gallery from '../../components/Gallery/Gallery'
@@ -39,8 +38,12 @@ class Layout extends Component {
 
     render() {
         const mainClasses = this.state.showSidebar ? [styles.Main, styles.showSidebar] : [styles.Main];
+        const offlineBannerClasses = this.state.showSidebar ? [styles.connectionMessage, styles.showSidebar] : [styles.connectionMessage];
+        const showOfflineMessage = !navigator.onLine;
+
         return (
             <div className={[styles['theme_' + process.env.REACT_APP_THEME] + ' ' + styles.LayoutContainer]}>
+
                 <Sidebar
                     toggled={this.sidebarToggleHandler}
                     showSidebar={this.state.showSidebar}>
@@ -53,6 +56,9 @@ class Layout extends Component {
                         <Route path="/gallery/:country/:album/:photo?" render={() => <Gallery showSidebar={this.state.showSidebar} />} />
                         <Redirect to="/" />
                     </Switch>
+                    {showOfflineMessage ? (<div className={offlineBannerClasses.join(' ')}>
+                        <p>Connection lost... offline mode activated!</p>
+                    </div>) : null}
                 </main>
             </div>
         )

@@ -22,8 +22,7 @@ import faCode from '@fortawesome/fontawesome-free-solid/faCode';
 import faCamera from '@fortawesome/fontawesome-free-solid/faCamera';
 import faCodeBranch from '@fortawesome/fontawesome-free-solid/faCodeBranch';
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart';
-import faMeh from '@fortawesome/fontawesome-free-solid/faMeh';
-fontawesome.library.add(faAngleLeft, faAngleRigth, faPlane, faCode, faCamera, faCodeBranch, faHeart, faMeh);
+fontawesome.library.add(faAngleLeft, faAngleRigth, faPlane, faCode, faCamera, faCodeBranch, faHeart);
 
 //
 // CSS fonts

@@ -214,10 +214,7 @@ class Gallery extends Component {
         const errorStyles = this.props.showSidebar ? [styles.Error, styles.showSidebar] : [styles.Error];
         let error = this.state.error ? (
             <div className={errorStyles.join(' ')}>
-                <i>
-                    <FontAwesomeIcon icon='meh' />
-                </i>
-                <p>Something went wrong! Please check your internet connection...</p>
+                <p>Opps! This image can't be loaded...</p>
             </div>
         ) : null;
 
